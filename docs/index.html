@@ -13,25 +13,27 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0a0a0a;
-      --bg2: #111118;
-      --bg3: #16161f;
-      --purple: #8b5cf6;
-      --purple-light: #a78bfa;
-      --purple-dim: rgba(139,92,246,0.15);
-      --white: #f1f1f1;
-      --muted: #888;
-      --border: rgba(139,92,246,0.2);
-      --card: #13131c;
-      --code-bg: #0d0d16;
-      --radius: 12px;
+      --bg:        #fafaf8;
+      --bg2:       #f2f0eb;
+      --bg3:       #e8e5de;
+      --green:     #15803d;
+      --green-mid: #16a34a;
+      --green-light:#22c55e;
+      --green-dim: rgba(21,128,61,0.08);
+      --text:      #1c1917;
+      --text2:     #44403c;
+      --muted:     #78716c;
+      --border:    #ddd8cf;
+      --card:      #ffffff;
+      --code-bg:   #f0ede7;
+      --radius:    10px;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
       background: var(--bg);
-      color: var(--white);
+      color: var(--text);
       font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
       line-height: 1.6;
       overflow-x: hidden;
@@ -41,26 +43,26 @@
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 16px 40px;
-      background: rgba(10,10,10,0.8);
+      padding: 14px 40px;
+      background: rgba(250,250,248,0.92);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
     }
     .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-    .nav-logo img { width: 32px; height: 32px; border-radius: 8px; }
-    .nav-logo span { font-weight: 700; font-size: 1.1rem; color: var(--white); }
+    .nav-logo img { width: 30px; height: 30px; border-radius: 7px; }
+    .nav-logo span { font-weight: 700; font-size: 1rem; color: var(--text); }
     .nav-links { display: flex; align-items: center; gap: 24px; }
     .nav-links a {
-      color: var(--muted); text-decoration: none; font-size: 0.9rem;
+      color: var(--muted); text-decoration: none; font-size: 0.875rem;
       transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--purple-light); }
+    .nav-links a:hover { color: var(--green); }
     .nav-cta {
-      background: var(--purple); color: #fff !important;
-      padding: 8px 18px; border-radius: 8px; font-weight: 600;
+      background: var(--green); color: #fff !important;
+      padding: 7px 16px; border-radius: 7px; font-weight: 600;
       transition: background 0.2s !important;
     }
-    .nav-cta:hover { background: var(--purple-light) !important; color: #0a0a0a !important; }
+    .nav-cta:hover { background: var(--green-mid) !important; }
 
     /* HERO */
     .hero {
@@ -74,216 +76,200 @@
     .hero::before {
       content: '';
       position: absolute; inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(139,92,246,0.18) 0%, transparent 70%);
+      background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(21,128,61,0.07) 0%, transparent 70%);
       pointer-events: none;
-    }
-    .hero-glow {
-      position: absolute;
-      width: 600px; height: 600px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 70%);
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      animation: pulse 6s ease-in-out infinite;
-      pointer-events: none;
-    }
-    @keyframes pulse {
-      0%, 100% { transform: translate(-50%,-50%) scale(1); opacity: 0.7; }
-      50% { transform: translate(-50%,-50%) scale(1.15); opacity: 1; }
-    }
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
     }
     .hero-logo {
-      width: 96px; height: 96px; border-radius: 20px;
+      width: 88px; height: 88px; border-radius: 18px;
       margin-bottom: 28px;
-      box-shadow: 0 0 40px rgba(139,92,246,0.4);
+      box-shadow: 0 2px 20px rgba(21,128,61,0.18), 0 1px 4px rgba(0,0,0,0.08);
       position: relative; z-index: 1;
     }
     .hero h1 {
-      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-size: clamp(2.6rem, 7vw, 4.6rem);
       font-weight: 800;
       letter-spacing: -0.03em;
       line-height: 1.1;
-      margin-bottom: 16px;
-      background: linear-gradient(135deg, #fff 0%, #c4b5fd 40%, #8b5cf6 100%);
-      background-size: 200% 200%;
-      animation: gradientShift 5s ease infinite;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      margin-bottom: 18px;
+      color: var(--text);
       position: relative; z-index: 1;
     }
+    .hero h1 span { color: var(--green); }
     .hero-tagline {
-      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
       color: var(--muted);
-      max-width: 600px;
+      max-width: 580px;
       margin: 0 auto 32px;
       position: relative; z-index: 1;
     }
-    .hero-tagline strong { color: var(--purple-light); }
+    .hero-tagline strong { color: var(--green); }
 
     /* BADGES */
     .badges {
       display: flex; flex-wrap: wrap; gap: 8px;
       justify-content: center;
-      margin-bottom: 40px;
+      margin-bottom: 36px;
       position: relative; z-index: 1;
     }
     .badge {
       display: inline-flex; align-items: center; gap: 6px;
-      background: var(--bg3);
+      background: var(--card);
       border: 1px solid var(--border);
       border-radius: 20px;
       padding: 5px 14px;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: var(--muted);
       font-weight: 500;
       transition: border-color 0.2s, color 0.2s;
     }
-    .badge:hover { border-color: var(--purple); color: var(--white); }
+    .badge:hover { border-color: var(--green-mid); color: var(--text2); }
     .badge .dot { width: 6px; height: 6px; border-radius: 50%; }
-    .badge-green .dot { background: #22c55e; }
+    .badge-green .dot { background: var(--green-light); }
     .badge-orange .dot { background: #f97316; }
     .badge-blue .dot { background: #3b82f6; }
-    .badge-purple .dot { background: var(--purple); }
+    .badge-teal .dot { background: var(--green); }
 
     /* COMMAND BOX */
     .command-box {
       display: flex; align-items: center;
-      background: var(--code-bg);
-      border: 1px solid var(--border);
+      background: var(--card);
+      border: 1.5px solid var(--border);
       border-radius: var(--radius);
-      padding: 16px 20px;
+      padding: 14px 20px;
       gap: 12px;
       font-family: 'SF Mono', 'Cascadia Code', 'Consolas', monospace;
-      font-size: 1.1rem;
-      max-width: 420px;
+      font-size: 1rem;
+      max-width: 400px;
       width: 100%;
       margin: 0 auto 24px;
       position: relative; z-index: 1;
       transition: border-color 0.2s, box-shadow 0.2s;
     }
     .command-box:hover {
-      border-color: var(--purple);
-      box-shadow: 0 0 20px rgba(139,92,246,0.15);
+      border-color: var(--green-mid);
+      box-shadow: 0 0 0 3px rgba(21,128,61,0.07);
     }
-    .command-box .prompt { color: var(--purple); font-weight: 700; }
-    .command-box .cmd { color: #e2e8f0; flex: 1; }
+    .command-box .prompt { color: var(--green); font-weight: 700; }
+    .command-box .cmd { color: var(--text2); flex: 1; }
     .copy-btn {
-      background: var(--purple-dim);
+      background: var(--green-dim);
       border: 1px solid var(--border);
-      color: var(--purple-light);
+      color: var(--green);
       border-radius: 6px;
       padding: 4px 12px;
-      font-size: 0.75rem;
+      font-size: 0.73rem;
       cursor: pointer;
       font-family: inherit;
-      transition: background 0.2s, color 0.2s;
+      font-weight: 600;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
       white-space: nowrap;
     }
-    .copy-btn:hover { background: var(--purple); color: #fff; }
-    .copy-btn.copied { background: #166534; color: #4ade80; border-color: #166534; }
+    .copy-btn:hover { background: var(--green); color: #fff; border-color: var(--green); }
+    .copy-btn.copied { background: #dcfce7; color: #15803d; border-color: #86efac; }
 
     .hero-actions {
       display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
       position: relative; z-index: 1;
     }
     .btn-primary {
-      background: var(--purple);
+      background: var(--green);
       color: #fff;
-      padding: 12px 28px;
-      border-radius: 10px;
+      padding: 12px 26px;
+      border-radius: 9px;
       text-decoration: none;
       font-weight: 600;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       transition: background 0.2s, transform 0.1s;
       display: inline-flex; align-items: center; gap: 8px;
     }
-    .btn-primary:hover { background: var(--purple-light); transform: translateY(-1px); }
+    .btn-primary:hover { background: var(--green-mid); transform: translateY(-1px); }
     .btn-secondary {
-      background: transparent;
-      color: var(--white);
-      padding: 12px 28px;
-      border-radius: 10px;
+      background: var(--card);
+      color: var(--text2);
+      padding: 12px 26px;
+      border-radius: 9px;
       text-decoration: none;
       font-weight: 600;
-      font-size: 0.95rem;
-      border: 1px solid var(--border);
+      font-size: 0.92rem;
+      border: 1.5px solid var(--border);
       transition: border-color 0.2s, background 0.2s;
     }
-    .btn-secondary:hover { border-color: var(--purple); background: var(--purple-dim); }
+    .btn-secondary:hover { border-color: var(--green-mid); background: var(--green-dim); }
 
     /* SECTIONS */
-    section { padding: 80px 24px; max-width: 1100px; margin: 0 auto; }
+    section { padding: 72px 24px; max-width: 1080px; margin: 0 auto; }
     .section-label {
-      font-size: 0.8rem; font-weight: 700; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--purple);
-      margin-bottom: 12px;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--green);
+      margin-bottom: 10px;
     }
     h2 {
-      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-size: clamp(1.7rem, 4vw, 2.4rem);
       font-weight: 800; letter-spacing: -0.02em;
-      margin-bottom: 16px;
+      color: var(--text);
+      margin-bottom: 14px;
     }
     .section-sub {
-      color: var(--muted); font-size: 1.05rem;
-      max-width: 560px; margin-bottom: 48px;
+      color: var(--muted); font-size: 1rem;
+      max-width: 540px; margin-bottom: 44px;
+      line-height: 1.65;
     }
 
     /* DIVIDER */
     .divider {
       height: 1px;
-      background: linear-gradient(90deg, transparent, var(--border), transparent);
-      max-width: 1100px; margin: 0 auto;
+      background: var(--border);
+      max-width: 1080px; margin: 0 auto;
     }
 
     /* FEATURES GRID */
     .features-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
+      gap: 18px;
     }
     .feature-card {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 28px;
+      padding: 26px;
       transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
     }
     .feature-card:hover {
-      border-color: var(--purple);
+      border-color: var(--green-mid);
       transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(139,92,246,0.12);
+      box-shadow: 0 6px 24px rgba(21,128,61,0.08);
     }
-    .feature-icon {
-      font-size: 2rem; margin-bottom: 14px;
-      display: block;
+    .feature-icon-mark {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 36px; height: 36px;
+      background: var(--green-dim);
+      border-radius: 8px;
+      margin-bottom: 14px;
     }
-    .feature-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
-    .feature-card p { color: var(--muted); font-size: 0.9rem; line-height: 1.6; }
+    .feature-icon-mark svg { width: 18px; height: 18px; stroke: var(--green); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .feature-card h3 { font-size: 0.98rem; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+    .feature-card p { color: var(--muted); font-size: 0.875rem; line-height: 1.65; }
 
     /* QUICK START */
     .quickstart-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 32px;
+      gap: 40px;
       align-items: start;
     }
     @media (max-width: 768px) { .quickstart-grid { grid-template-columns: 1fr; } }
     .step { display: flex; gap: 16px; margin-bottom: 24px; align-items: flex-start; }
     .step-num {
-      width: 32px; height: 32px; min-width: 32px;
-      background: var(--purple-dim);
-      border: 1px solid var(--border);
+      width: 30px; height: 30px; min-width: 30px;
+      background: var(--green-dim);
+      border: 1.5px solid rgba(21,128,61,0.25);
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      font-size: 0.8rem; font-weight: 700; color: var(--purple-light);
+      font-size: 0.78rem; font-weight: 700; color: var(--green);
     }
-    .step-content h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 6px; }
-    .step-content p { color: var(--muted); font-size: 0.875rem; }
+    .step-content h4 { font-size: 0.92rem; font-weight: 700; margin-bottom: 5px; color: var(--text); }
+    .step-content p { color: var(--muted); font-size: 0.85rem; }
 
     /* CODE BLOCK */
     .code-block {
@@ -294,22 +280,23 @@
     }
     .code-header {
       display: flex; justify-content: space-between; align-items: center;
-      padding: 10px 16px;
+      padding: 9px 14px;
       border-bottom: 1px solid var(--border);
-      background: rgba(255,255,255,0.02);
+      background: rgba(0,0,0,0.02);
     }
-    .code-header span { font-size: 0.78rem; color: var(--muted); font-family: monospace; }
+    .code-header span { font-size: 0.74rem; color: var(--muted); font-family: monospace; }
     .code-body {
-      padding: 20px;
+      padding: 18px;
       font-family: 'SF Mono', 'Cascadia Code', 'Consolas', monospace;
-      font-size: 0.85rem;
-      line-height: 1.8;
+      font-size: 0.84rem;
+      line-height: 1.85;
       overflow-x: auto;
+      color: var(--text2);
     }
-    .code-body .c { color: #6b7280; }
-    .code-body .k { color: #c084fc; }
-    .code-body .s { color: #86efac; }
-    .code-body .v { color: #60a5fa; }
+    .code-body .c { color: #a8a29e; }
+    .code-body .k { color: var(--green); font-weight: 600; }
+    .code-body .s { color: #0369a1; }
+    .code-body .v { color: #b45309; }
 
     /* LANGUAGES TABLE */
     .lang-table {
@@ -321,161 +308,195 @@
       border: 1px solid var(--border);
     }
     .lang-table th {
-      background: rgba(139,92,246,0.1);
-      padding: 14px 20px;
+      background: var(--bg2);
+      padding: 12px 18px;
       text-align: left;
-      font-size: 0.8rem; font-weight: 700;
-      color: var(--purple-light);
-      letter-spacing: 0.06em; text-transform: uppercase;
+      font-size: 0.74rem; font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 0.08em; text-transform: uppercase;
       border-bottom: 1px solid var(--border);
     }
     .lang-table td {
-      padding: 14px 20px;
-      border-bottom: 1px solid rgba(139,92,246,0.08);
-      font-size: 0.9rem;
+      padding: 13px 18px;
+      border-bottom: 1px solid var(--bg2);
+      font-size: 0.875rem;
       color: var(--muted);
     }
     .lang-table tr:last-child td { border-bottom: none; }
-    .lang-table tr.highlight td { color: var(--white); background: rgba(139,92,246,0.06); }
-    .lang-table tr:hover td { background: rgba(139,92,246,0.04); }
-    .lang-native { color: var(--purple-light); font-weight: 600; }
+    .lang-table tr.highlight td { color: var(--text); background: rgba(21,128,61,0.04); }
+    .lang-table tr:hover td { background: var(--bg2); }
+    .lang-native { color: var(--green); font-weight: 600; }
     .tag-featured {
-      background: var(--purple);
+      background: var(--green);
       color: #fff;
-      font-size: 0.7rem; font-weight: 700;
+      font-size: 0.65rem; font-weight: 700;
       padding: 2px 8px; border-radius: 10px;
       margin-left: 8px;
+      vertical-align: middle;
     }
-    .tag-new {
-      background: #166534;
-      color: #4ade80;
-      font-size: 0.7rem; font-weight: 700;
-      padding: 2px 8px; border-radius: 10px;
-      margin-left: 8px;
-    }
+    .status-ok { color: var(--green); font-weight: 600; }
+    .status-default { color: var(--text2); font-weight: 600; }
+    .status-supported { color: var(--muted); }
 
     /* PRO TIER */
-    .pro-section { background: var(--bg2); }
+    .pro-section { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
     .pro-wrapper {
-      max-width: 1100px; margin: 0 auto;
-      padding: 80px 24px;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;
+      max-width: 1080px; margin: 0 auto;
+      padding: 72px 24px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center;
     }
-    @media (max-width: 768px) { .pro-wrapper { grid-template-columns: 1fr; } }
+    @media (max-width: 768px) { .pro-wrapper { grid-template-columns: 1fr; gap: 40px; } }
     .pro-card {
-      background: linear-gradient(135deg, #1a0a2e, #13131c);
-      border: 1px solid rgba(139,92,246,0.4);
-      border-radius: 16px;
-      padding: 36px;
-      box-shadow: 0 0 60px rgba(139,92,246,0.1);
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      padding: 34px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.05);
       position: relative; overflow: hidden;
     }
     .pro-card::before {
       content: '';
-      position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, var(--purple), var(--purple-light), var(--purple));
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--green), var(--green-mid), var(--green-light));
+    }
+    .pro-label {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--green);
+      margin-bottom: 12px;
     }
     .pro-price {
-      font-size: 3rem; font-weight: 900;
-      color: var(--white); margin-bottom: 4px;
+      font-size: 2.8rem; font-weight: 900;
+      color: var(--text); margin-bottom: 4px;
+      letter-spacing: -0.03em;
     }
-    .pro-price span { font-size: 1.2rem; color: var(--muted); font-weight: 400; }
-    .pro-note { color: var(--muted); font-size: 0.85rem; margin-bottom: 28px; }
-    .pro-features { list-style: none; margin-bottom: 28px; }
-    .pro-features li {
+    .pro-price span { font-size: 1.1rem; color: var(--muted); font-weight: 400; }
+    .pro-note { color: var(--muted); font-size: 0.83rem; margin-bottom: 26px; }
+    .pro-features-list { list-style: none; margin-bottom: 26px; }
+    .pro-features-list li {
       padding: 8px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      font-size: 0.9rem;
+      border-bottom: 1px solid var(--bg2);
+      font-size: 0.875rem;
       display: flex; align-items: center; gap: 10px;
+      color: var(--text2);
     }
-    .pro-features li:last-child { border-bottom: none; }
-    .check { color: #4ade80; font-weight: 700; }
-    .dash { color: var(--muted); }
+    .pro-features-list li:last-child { border-bottom: none; }
+    .check { color: var(--green); font-weight: 700; }
+    .dash { color: var(--border); }
     .btn-pro {
       display: block; text-align: center;
-      background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+      background: var(--green);
       color: #fff; text-decoration: none;
-      padding: 14px 24px; border-radius: 10px;
-      font-weight: 700; font-size: 1rem;
-      transition: transform 0.2s, box-shadow 0.2s;
-      box-shadow: 0 4px 20px rgba(139,92,246,0.3);
+      padding: 13px 24px; border-radius: 9px;
+      font-weight: 700; font-size: 0.95rem;
+      transition: background 0.2s, transform 0.2s;
     }
-    .btn-pro:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(139,92,246,0.4); }
+    .btn-pro:hover { background: var(--green-mid); transform: translateY(-1px); }
     .pro-table {
       width: 100%;
       border-collapse: collapse;
     }
     .pro-table th {
       padding: 10px 12px; text-align: left;
-      font-size: 0.78rem; color: var(--muted);
+      font-size: 0.74rem; color: var(--muted);
       border-bottom: 1px solid var(--border);
-      font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em;
+      font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
     }
     .pro-table td {
-      padding: 12px;
-      font-size: 0.88rem;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
+      padding: 11px 12px;
+      font-size: 0.875rem;
+      border-bottom: 1px solid var(--bg2);
       color: var(--muted);
     }
-    .pro-table td:first-child { color: var(--white); }
+    .pro-table td:first-child { color: var(--text2); }
     .pro-table tr:last-child td { border-bottom: none; }
 
     /* INSTALL */
     .install-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
+      gap: 18px;
     }
     .install-card {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       overflow: hidden;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
-    .install-card:hover { border-color: var(--purple); }
+    .install-card:hover { border-color: var(--green-mid); box-shadow: 0 4px 16px rgba(21,128,61,0.07); }
     .install-card-header {
-      padding: 20px 24px 16px;
+      padding: 18px 22px 14px;
       border-bottom: 1px solid var(--border);
       display: flex; align-items: center; gap: 10px;
     }
-    .install-card-header .icon { font-size: 1.4rem; }
-    .install-card-header h3 { font-size: 0.95rem; font-weight: 700; }
+    .install-mark {
+      width: 28px; height: 28px;
+      background: var(--green-dim);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .install-mark svg { width: 14px; height: 14px; stroke: var(--green); fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+    .install-card-header h3 { font-size: 0.9rem; font-weight: 700; color: var(--text); }
+
+    /* ENV TABLE */
+    .env-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--card);
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .env-table th {
+      background: var(--bg2);
+      padding: 11px 18px;
+      text-align: left; font-size: 0.74rem; font-weight: 700;
+      color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+    }
+    .env-table td {
+      padding: 12px 18px;
+      border-bottom: 1px solid var(--bg2);
+      font-size: 0.85rem; color: var(--muted);
+      vertical-align: top;
+    }
+    .env-table td:first-child { font-family: 'SF Mono', 'Consolas', monospace; color: var(--text2); font-size: 0.8rem; }
+    .env-table tr:last-child td { border-bottom: none; }
 
     /* FOOTER */
     footer {
       background: var(--bg2);
       border-top: 1px solid var(--border);
-      padding: 48px 24px 32px;
+      padding: 44px 24px 28px;
       text-align: center;
     }
-    .footer-logo { display: flex; align-items: center; gap: 8px; justify-content: center; margin-bottom: 16px; }
-    .footer-logo img { width: 28px; border-radius: 6px; }
-    .footer-logo span { font-weight: 700; font-size: 1rem; }
+    .footer-logo { display: flex; align-items: center; gap: 8px; justify-content: center; margin-bottom: 14px; }
+    .footer-logo img { width: 26px; border-radius: 5px; }
+    .footer-logo span { font-weight: 700; font-size: 0.95rem; color: var(--text); }
     .footer-links {
-      display: flex; gap: 24px; flex-wrap: wrap; justify-content: center;
-      margin-bottom: 24px;
+      display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;
+      margin-bottom: 20px;
     }
     .footer-links a {
-      color: var(--muted); text-decoration: none; font-size: 0.875rem;
+      color: var(--muted); text-decoration: none; font-size: 0.83rem;
       transition: color 0.2s;
     }
-    .footer-links a:hover { color: var(--purple-light); }
-    .footer-copy { color: var(--muted); font-size: 0.8rem; }
-    .footer-copy a { color: var(--purple-light); text-decoration: none; }
+    .footer-links a:hover { color: var(--green); }
+    .footer-copy { color: var(--muted); font-size: 0.77rem; }
+    .footer-copy a { color: var(--green); text-decoration: none; }
 
     /* SCROLL ANIMATION */
     .fade-up {
-      opacity: 0; transform: translateY(24px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
     }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
 
     /* MOBILE NAV */
     @media (max-width: 640px) {
-      nav { padding: 14px 20px; }
+      nav { padding: 12px 18px; }
       .nav-links { display: none; }
-      section { padding: 60px 20px; }
+      section { padding: 56px 18px; }
       .features-grid { grid-template-columns: 1fr; }
     }
   </style>
@@ -500,9 +521,8 @@
 
 <!-- HERO -->
 <section class="hero" id="home">
-  <div class="hero-glow"></div>
   <img class="hero-logo" src="logo.png" alt="Vilvona AI" />
-  <h1>Vilvona AI</h1>
+  <h1>Vilvona <span>AI</span></h1>
   <p class="hero-tagline">
     Your personal AI that connects everything.<br />
     Powered by <strong>Claude Fable 5</strong>. Self-hosted. BYOK. Mobile PWA.
@@ -512,7 +532,7 @@
     <span class="badge badge-green"><span class="dot"></span>MIT License</span>
     <span class="badge badge-orange"><span class="dot"></span>npm: vilvona</span>
     <span class="badge badge-blue"><span class="dot"></span>Node 22+</span>
-    <span class="badge badge-purple"><span class="dot"></span>Claude Fable 5</span>
+    <span class="badge badge-teal"><span class="dot"></span>Claude Fable 5</span>
   </div>
 
   <div class="command-box">
@@ -523,11 +543,11 @@
 
   <div class="hero-actions">
     <a href="#quickstart" class="btn-primary">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
       Get Started
     </a>
     <a href="https://github.com/vignesh2027/Vilvona-AI" class="btn-secondary" target="_blank">
-      View on GitHub →
+      View on GitHub &rarr;
     </a>
   </div>
 </section>
@@ -537,55 +557,83 @@
 <!-- FEATURES -->
 <section id="features">
   <div class="section-label">Features</div>
-  <h2>Everything you need, nothing you don't.</h2>
+  <h2>Everything you need, nothing you don&rsquo;t.</h2>
   <p class="section-sub">Run your own AI assistant with Claude Fable 5 at its core. No cloud lock-in, no accounts, no tracking.</p>
 
   <div class="features-grid fade-up">
+
     <div class="feature-card">
-      <span class="feature-icon">🧠</span>
+      <div class="feature-icon-mark">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      </div>
       <h3>Claude Fable 5</h3>
       <p>Default model with 1M context window, computer use, and best-in-class reasoning. Always the frontier.</p>
     </div>
+
     <div class="feature-card">
-      <span class="feature-icon">🇮🇳</span>
+      <div class="feature-icon-mark">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>
+      </div>
       <h3>Tamil &amp; Hindi UI</h3>
-      <p>First AI assistant with native Tamil (தமிழ்) and Hindi (हिन्दी) interface. Built for India, works globally.</p>
+      <p>First AI assistant with native Tamil (&#2980;&#2990;&#3007;&#2996;&#3021;) and Hindi (&#2361;&#2367;&#2344;&#2381;&#2342;&#3080;) interface. Built for India, works globally.</p>
     </div>
+
     <div class="feature-card">
-      <span class="feature-icon">📱</span>
+      <div class="feature-icon-mark">
+        <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+      </div>
       <h3>Mobile PWA</h3>
-      <p>Install directly from your browser on iOS or Android — no app store needed. Works offline too.</p>
+      <p>Install directly from your browser on iOS or Android &mdash; no app store needed. Works offline too.</p>
     </div>
+
     <div class="feature-card">
-      <span class="feature-icon">🔑</span>
-      <h3>BYOK — Bring Your Own Key</h3>
+      <div class="feature-icon-mark">
+        <svg viewBox="0 0 24 24"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+      </div>
+      <h3>BYOK &mdash; Bring Your Own Key</h3>
       <p>Use your own Anthropic API key. Pay per token directly. Vilvona never sees your data or billing.</p>
     </div>
+
     <div class="feature-card">
-      <span class="feature-icon">🏠</span>
+      <div class="feature-icon-mark">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </div>
       <h3>Fully Self-Hosted</h3>
       <p>Runs entirely on your machine or server. No cloud, no accounts, no telemetry. You own everything.</p>
     </div>
+
     <div class="feature-card">
-      <span class="feature-icon">🔌</span>
+      <div class="feature-icon-mark">
+        <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+      </div>
       <h3>100+ Integrations</h3>
-      <p>WhatsApp, Telegram, Slack, Discord, Gmail, Notion, GitHub and more — all connected through one interface.</p>
+      <p>WhatsApp, Telegram, Slack, Discord, Gmail, Notion, GitHub and more &mdash; all connected through one interface.</p>
     </div>
+
     <div class="feature-card">
-      <span class="feature-icon">🌍</span>
+      <div class="feature-icon-mark">
+        <svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+      </div>
       <h3>21 Languages</h3>
-      <p>Tamil, Hindi, English, Chinese, Japanese, Korean, Arabic, French, German, Spanish and 11 more.</p>
+      <p>Tamil, Hindi, English, Chinese, Japanese, Korean, Arabic, French, German, Spanish, and 11 more.</p>
     </div>
+
     <div class="feature-card">
-      <span class="feature-icon">⚡</span>
+      <div class="feature-icon-mark">
+        <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      </div>
       <h3>npx Ready</h3>
       <p>One command to start. No global install required. Always runs the latest version automatically.</p>
     </div>
+
     <div class="feature-card">
-      <span class="feature-icon">🐋</span>
+      <div class="feature-icon-mark">
+        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
+      </div>
       <h3>Docker Support</h3>
-      <p>Containerized deployment with a single <code style="color:var(--purple-light);font-size:0.85em">docker run</code> command. Ready for VPS, cloud, and CI environments.</p>
+      <p>Containerized deployment with a single <code style="font-family:monospace;background:var(--bg2);padding:1px 5px;border-radius:4px;font-size:0.82em">docker run</code> command. Ready for VPS and cloud.</p>
     </div>
+
   </div>
 </section>
 
@@ -610,21 +658,21 @@
         <div class="step-num">2</div>
         <div class="step-content">
           <h4>Set your API key</h4>
-          <p>Get a free key at <a href="https://console.anthropic.com" style="color:var(--purple-light)">console.anthropic.com</a> — pay per token.</p>
+          <p>Get a free key at <a href="https://console.anthropic.com" style="color:var(--green)">console.anthropic.com</a> &mdash; pay per token, no upfront cost.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">3</div>
         <div class="step-content">
           <h4>Open the interface</h4>
-          <p>Visit <strong style="color:var(--white)">http://localhost:4000</strong> in your browser. Done.</p>
+          <p>Visit <strong style="color:var(--text)">http://localhost:4000</strong> in your browser. Done.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">4</div>
         <div class="step-content">
           <h4>Install on mobile (optional)</h4>
-          <p>Open <strong style="color:var(--white)">http://your-ip:4000</strong> on your phone → "Add to Home Screen".</p>
+          <p>Open <strong style="color:var(--text)">http://your-ip:4000</strong> on your phone and tap &ldquo;Add to Home Screen&rdquo;.</p>
         </div>
       </div>
     </div>
@@ -633,10 +681,10 @@
       <div class="code-block">
         <div class="code-header">
           <span>bash</span>
-          <button class="copy-btn" onclick="copyCode(this, `# Run instantly — no install needed\nnpx vilvona\n\n# Or install globally\nnpm install -g vilvona\nvilvona`)">Copy</button>
+          <button class="copy-btn" onclick="copyCode(this, `# Run instantly\nnpx vilvona\n\n# Or install globally\nnpm install -g vilvona\nvilvona`)">Copy</button>
         </div>
         <div class="code-body">
-          <span class="c"># Run instantly — no install needed</span><br/>
+          <span class="c"># Run instantly</span><br/>
           <span class="k">npx</span> <span class="s">vilvona</span><br/><br/>
           <span class="c"># Or install globally</span><br/>
           <span class="k">npm install</span> <span class="v">-g</span> <span class="s">vilvona</span><br/>
@@ -644,9 +692,9 @@
         </div>
       </div>
 
-      <div class="code-block" style="margin-top:16px">
+      <div class="code-block" style="margin-top:14px">
         <div class="code-header">
-          <span>bash — set API key</span>
+          <span>bash &mdash; set API key</span>
           <button class="copy-btn" onclick="copyCode(this, 'export ANTHROPIC_API_KEY=sk-ant-...\nnpx vilvona')">Copy</button>
         </div>
         <div class="code-body">
@@ -655,9 +703,9 @@
         </div>
       </div>
 
-      <div class="code-block" style="margin-top:16px">
+      <div class="code-block" style="margin-top:14px">
         <div class="code-header">
-          <span>json — ~/.openclaw/config.json</span>
+          <span>json &mdash; ~/.openclaw/config.json</span>
           <button class="copy-btn" onclick="copyCode(this, `{\n  \"defaults\": {\n    \"model\": \"anthropic/claude-fable-5\"\n  },\n  \"ui\": {\n    \"language\": \"ta\"\n  }\n}`)">Copy</button>
         </div>
         <div class="code-body">
@@ -681,7 +729,7 @@
 <section id="languages">
   <div class="section-label">Languages</div>
   <h2>Built for the world. Built for India.</h2>
-  <p class="section-sub">Native Tamil and Hindi UI — the first AI assistant to truly speak India's languages.</p>
+  <p class="section-sub">Native Tamil and Hindi UI &mdash; the first AI assistant to truly support India&rsquo;s languages out of the box.</p>
 
   <div class="fade-up">
     <table class="lang-table">
@@ -696,67 +744,67 @@
       <tbody>
         <tr class="highlight">
           <td><strong>Tamil</strong><span class="tag-featured">Featured</span></td>
-          <td class="lang-native">தமிழ்</td>
-          <td><code style="color:var(--muted);font-size:0.82em">ta</code></td>
-          <td><span style="color:#4ade80">✓ Full UI</span></td>
+          <td class="lang-native">&#2980;&#2990;&#3007;&#2996;&#3021;</td>
+          <td><code style="font-family:monospace;font-size:0.8em;background:var(--bg2);padding:2px 6px;border-radius:4px">ta</code></td>
+          <td><span class="status-ok">Full UI</span></td>
         </tr>
         <tr class="highlight">
           <td><strong>Hindi</strong><span class="tag-featured">Featured</span></td>
-          <td class="lang-native">हिन्दी</td>
-          <td><code style="color:var(--muted);font-size:0.82em">hi</code></td>
-          <td><span style="color:#4ade80">✓ Full UI</span></td>
+          <td class="lang-native">&#2361;&#2367;&#2344;&#2381;&#2342;&#3080;</td>
+          <td><code style="font-family:monospace;font-size:0.8em;background:var(--bg2);padding:2px 6px;border-radius:4px">hi</code></td>
+          <td><span class="status-ok">Full UI</span></td>
         </tr>
         <tr>
           <td>English</td>
           <td>English</td>
-          <td><code style="color:var(--muted);font-size:0.82em">en</code></td>
-          <td><span style="color:#4ade80">✓ Default</span></td>
+          <td><code style="font-family:monospace;font-size:0.8em;background:var(--bg2);padding:2px 6px;border-radius:4px">en</code></td>
+          <td><span class="status-default">Default</span></td>
         </tr>
         <tr>
           <td>Chinese (Simplified)</td>
-          <td>中文</td>
-          <td><code style="color:var(--muted);font-size:0.82em">zh</code></td>
-          <td><span style="color:#4ade80">✓ Supported</span></td>
+          <td>&#20013;&#25991;</td>
+          <td><code style="font-family:monospace;font-size:0.8em;background:var(--bg2);padding:2px 6px;border-radius:4px">zh</code></td>
+          <td><span class="status-supported">Supported</span></td>
         </tr>
         <tr>
           <td>Japanese</td>
-          <td>日本語</td>
-          <td><code style="color:var(--muted);font-size:0.82em">ja</code></td>
-          <td><span style="color:#4ade80">✓ Supported</span></td>
+          <td>&#26085;&#26412;&#35486;</td>
+          <td><code style="font-family:monospace;font-size:0.8em;background:var(--bg2);padding:2px 6px;border-radius:4px">ja</code></td>
+          <td><span class="status-supported">Supported</span></td>
         </tr>
         <tr>
           <td>Korean</td>
-          <td>한국어</td>
-          <td><code style="color:var(--muted);font-size:0.82em">ko</code></td>
-          <td><span style="color:#4ade80">✓ Supported</span></td>
+          <td>&#54620;&#44397;&#50612;</td>
+          <td><code style="font-family:monospace;font-size:0.8em;background:var(--bg2);padding:2px 6px;border-radius:4px">ko</code></td>
+          <td><span class="status-supported">Supported</span></td>
         </tr>
         <tr>
           <td>Arabic</td>
-          <td>العربية</td>
-          <td><code style="color:var(--muted);font-size:0.82em">ar</code></td>
-          <td><span style="color:#4ade80">✓ Supported</span></td>
+          <td>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</td>
+          <td><code style="font-family:monospace;font-size:0.8em;background:var(--bg2);padding:2px 6px;border-radius:4px">ar</code></td>
+          <td><span class="status-supported">Supported</span></td>
         </tr>
         <tr>
           <td>French</td>
-          <td>Français</td>
-          <td><code style="color:var(--muted);font-size:0.82em">fr</code></td>
-          <td><span style="color:#4ade80">✓ Supported</span></td>
+          <td>Fran&#231;ais</td>
+          <td><code style="font-family:monospace;font-size:0.8em;background:var(--bg2);padding:2px 6px;border-radius:4px">fr</code></td>
+          <td><span class="status-supported">Supported</span></td>
         </tr>
         <tr>
           <td>German</td>
           <td>Deutsch</td>
-          <td><code style="color:var(--muted);font-size:0.82em">de</code></td>
-          <td><span style="color:#4ade80">✓ Supported</span></td>
+          <td><code style="font-family:monospace;font-size:0.8em;background:var(--bg2);padding:2px 6px;border-radius:4px">de</code></td>
+          <td><span class="status-supported">Supported</span></td>
         </tr>
         <tr>
           <td>Spanish</td>
-          <td>Español</td>
-          <td><code style="color:var(--muted);font-size:0.82em">es</code></td>
-          <td><span style="color:#4ade80">✓ Supported</span></td>
+          <td>Espa&#241;ol</td>
+          <td><code style="font-family:monospace;font-size:0.8em;background:var(--bg2);padding:2px 6px;border-radius:4px">es</code></td>
+          <td><span class="status-supported">Supported</span></td>
         </tr>
         <tr>
-          <td colspan="3" style="color:var(--muted);font-style:italic">+ 11 more languages</td>
-          <td><span style="color:var(--muted)">21 total</span></td>
+          <td colspan="3" style="color:var(--muted);font-style:italic;font-size:0.85rem">+ 11 additional languages</td>
+          <td><span style="color:var(--muted);font-size:0.85rem">21 total</span></td>
         </tr>
       </tbody>
     </table>
@@ -771,7 +819,7 @@
     <div class="fade-up">
       <div class="section-label">Pro Tier</div>
       <h2>Unlock the full power of Vilvona AI.</h2>
-      <p style="color:var(--muted);margin-bottom:28px">One-time purchase. No subscriptions, no monthly fees. Lifetime access to Pro features.</p>
+      <p style="color:var(--muted);margin-bottom:28px;font-size:0.95rem;line-height:1.65">One-time purchase. No subscriptions, no monthly fees. Lifetime access to all Pro features and updates.</p>
 
       <table class="pro-table">
         <thead>
@@ -784,53 +832,53 @@
         <tbody>
           <tr>
             <td>Claude Fable 5</td>
-            <td><span class="check">✓</span></td>
-            <td><span class="check">✓</span></td>
+            <td><span class="check">Yes</span></td>
+            <td><span class="check">Yes</span></td>
           </tr>
           <tr>
             <td>All integrations</td>
-            <td><span class="check">✓</span></td>
-            <td><span class="check">✓</span></td>
+            <td><span class="check">Yes</span></td>
+            <td><span class="check">Yes</span></td>
           </tr>
           <tr>
             <td>Tamil &amp; Hindi UI</td>
-            <td><span class="check">✓</span></td>
-            <td><span class="check">✓</span></td>
+            <td><span class="check">Yes</span></td>
+            <td><span class="check">Yes</span></td>
           </tr>
           <tr>
             <td>Mobile PWA</td>
-            <td><span class="check">✓</span></td>
-            <td><span class="check">✓</span></td>
+            <td><span class="check">Yes</span></td>
+            <td><span class="check">Yes</span></td>
           </tr>
           <tr>
             <td>Enterprise audit logs</td>
-            <td><span class="dash">—</span></td>
-            <td><span class="check">✓</span></td>
+            <td><span class="dash">&mdash;</span></td>
+            <td><span class="check">Yes</span></td>
           </tr>
           <tr>
             <td>Team config sync</td>
-            <td><span class="dash">—</span></td>
-            <td><span class="check">✓</span></td>
+            <td><span class="dash">&mdash;</span></td>
+            <td><span class="check">Yes</span></td>
           </tr>
           <tr>
             <td>Priority Fable 5 routing</td>
-            <td><span class="dash">—</span></td>
-            <td><span class="check">✓</span></td>
+            <td><span class="dash">&mdash;</span></td>
+            <td><span class="check">Yes</span></td>
           </tr>
           <tr>
             <td>Custom AI personas (unlimited)</td>
-            <td><span class="dash">—</span></td>
-            <td><span class="check">✓</span></td>
+            <td><span class="dash">&mdash;</span></td>
+            <td><span class="check">Yes</span></td>
           </tr>
           <tr>
             <td>Webhook &amp; Zapier integrations</td>
-            <td><span class="dash">—</span></td>
-            <td><span class="check">✓</span></td>
+            <td><span class="dash">&mdash;</span></td>
+            <td><span class="check">Yes</span></td>
           </tr>
           <tr>
             <td>White-label branding</td>
-            <td><span class="dash">—</span></td>
-            <td><span class="check">✓</span></td>
+            <td><span class="dash">&mdash;</span></td>
+            <td><span class="check">Yes</span></td>
           </tr>
         </tbody>
       </table>
@@ -838,31 +886,31 @@
 
     <div class="fade-up">
       <div class="pro-card">
-        <div style="font-size:0.8rem;font-weight:700;color:var(--purple-light);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:12px">Vilvona AI Pro</div>
-        <div class="pro-price">₹4,100 <span>one-time</span></div>
-        <div class="pro-note">~$49 USD · No subscription · Lifetime access</div>
+        <div class="pro-label">Vilvona AI Pro</div>
+        <div class="pro-price">&#8377;4,100 <span>one-time</span></div>
+        <div class="pro-note">~$49 USD &middot; No subscription &middot; Lifetime access</div>
 
-        <ul class="pro-features">
-          <li><span class="check">✓</span> Enterprise audit logs &amp; analytics</li>
-          <li><span class="check">✓</span> Team config sync across devices</li>
-          <li><span class="check">✓</span> Priority Claude Fable 5 routing</li>
-          <li><span class="check">✓</span> Unlimited custom AI personas</li>
-          <li><span class="check">✓</span> Webhook &amp; Zapier integrations</li>
-          <li><span class="check">✓</span> White-label branding</li>
-          <li><span class="check">✓</span> Lifetime updates included</li>
+        <ul class="pro-features-list">
+          <li><span class="check">&#10003;</span> Enterprise audit logs &amp; analytics</li>
+          <li><span class="check">&#10003;</span> Team config sync across devices</li>
+          <li><span class="check">&#10003;</span> Priority Claude Fable 5 routing</li>
+          <li><span class="check">&#10003;</span> Unlimited custom AI personas</li>
+          <li><span class="check">&#10003;</span> Webhook &amp; Zapier integrations</li>
+          <li><span class="check">&#10003;</span> White-label branding</li>
+          <li><span class="check">&#10003;</span> Lifetime updates included</li>
         </ul>
 
         <a href="https://vignesh2027.mojo.page/vilvona-ai-pro" class="btn-pro" target="_blank">
-          Get Pro — ₹4,100 →
+          Get Pro &mdash; &#8377;4,100 &rarr;
         </a>
 
-        <div style="margin-top:20px">
+        <div style="margin-top:18px">
           <div class="code-block">
             <div class="code-header">
-              <span>bash — activate pro key</span>
+              <span>bash &mdash; activate pro key</span>
               <button class="copy-btn" onclick="copyCode(this, 'export VILVONA_PRO_KEY=VLVN-XXXX-XXXX-XXXX-XXXX\nvilvona')">Copy</button>
             </div>
-            <div class="code-body" style="font-size:0.8rem">
+            <div class="code-body" style="font-size:0.79rem">
               <span class="k">export</span> <span class="v">VILVONA_PRO_KEY</span>=<span class="s">VLVN-XXXX-XXXX-XXXX-XXXX</span><br/>
               <span class="k">vilvona</span>
             </div>
@@ -877,13 +925,16 @@
 <section id="install">
   <div class="section-label">Install</div>
   <h2>Works with npm, yarn, pnpm, and Docker.</h2>
-  <p class="section-sub">One command on any OS — Mac, Windows, Linux. Node.js 22+ required.</p>
+  <p class="section-sub">One command on any OS &mdash; Mac, Windows, Linux. Node.js 22+ required.</p>
 
   <div class="install-grid fade-up">
+
     <div class="install-card">
       <div class="install-card-header">
-        <span class="icon">⚡</span>
-        <h3>npx — recommended</h3>
+        <div class="install-mark">
+          <svg viewBox="0 0 24 24"><polyline points="13 2 13 9 20 9"/><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h10l6 6v2.34"/></svg>
+        </div>
+        <h3>npx &mdash; recommended</h3>
       </div>
       <div class="code-block" style="border:none;border-radius:0">
         <div class="code-header">
@@ -898,7 +949,9 @@
 
     <div class="install-card">
       <div class="install-card-header">
-        <span class="icon">🧶</span>
+        <div class="install-mark">
+          <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+        </div>
         <h3>yarn</h3>
       </div>
       <div class="code-block" style="border:none;border-radius:0">
@@ -914,7 +967,9 @@
 
     <div class="install-card">
       <div class="install-card-header">
-        <span class="icon">📦</span>
+        <div class="install-mark">
+          <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+        </div>
         <h3>pnpm</h3>
       </div>
       <div class="code-block" style="border:none;border-radius:0">
@@ -930,7 +985,9 @@
 
     <div class="install-card">
       <div class="install-card-header">
-        <span class="icon">🐋</span>
+        <div class="install-mark">
+          <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        </div>
         <h3>Docker</h3>
       </div>
       <div class="code-block" style="border:none;border-radius:0">
@@ -938,7 +995,7 @@
           <span>Container deployment</span>
           <button class="copy-btn" onclick="copyCode(this, 'docker run -e ANTHROPIC_API_KEY=sk-ant-... -p 4000:4000 ghcr.io/vignesh2027/vilvona-ai')">Copy</button>
         </div>
-        <div class="code-body" style="font-size:0.78rem">
+        <div class="code-body" style="font-size:0.79rem">
           <span class="k">docker run</span> \<br/>
           &nbsp;&nbsp;<span class="v">-e</span> <span class="s">ANTHROPIC_API_KEY</span>=sk-ant-... \<br/>
           &nbsp;&nbsp;<span class="v">-p</span> 4000:4000 \<br/>
@@ -949,7 +1006,9 @@
 
     <div class="install-card">
       <div class="install-card-header">
-        <span class="icon">🪟</span>
+        <div class="install-mark">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
         <h3>Windows (PowerShell)</h3>
       </div>
       <div class="code-block" style="border:none;border-radius:0">
@@ -957,7 +1016,7 @@
           <span>Windows native</span>
           <button class="copy-btn" onclick="copyCode(this, '$env:ANTHROPIC_API_KEY=\"sk-ant-...\"\nnpx vilvona')">Copy</button>
         </div>
-        <div class="code-body" style="font-size:0.82rem">
+        <div class="code-body" style="font-size:0.8rem">
           <span class="v">$env:ANTHROPIC_API_KEY</span>=<span class="s">"sk-ant-..."</span><br/>
           <span class="k">npx</span> <span class="s">vilvona</span>
         </div>
@@ -966,21 +1025,62 @@
 
     <div class="install-card">
       <div class="install-card-header">
-        <span class="icon">🍺</span>
+        <div class="install-mark">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"/></svg>
+        </div>
         <h3>From Source</h3>
       </div>
       <div class="code-block" style="border:none;border-radius:0">
         <div class="code-header">
           <span>Clone &amp; run</span>
-          <button class="copy-btn" onclick="copyCode(this, 'git clone https://github.com/vignesh2027/Vilvona-AI\ncd Vilvona-AI\nnpm install\nnpx vilvona')">Copy</button>
+          <button class="copy-btn" onclick="copyCode(this, 'git clone https://github.com/vignesh2027/Vilvona-AI\ncd Vilvona-AI\nnpx vilvona')">Copy</button>
         </div>
-        <div class="code-body" style="font-size:0.82rem">
+        <div class="code-body" style="font-size:0.8rem">
           <span class="k">git clone</span> <span class="s">github.com/vignesh2027/Vilvona-AI</span><br/>
           <span class="k">cd</span> Vilvona-AI<br/>
           <span class="k">npx vilvona</span>
         </div>
       </div>
     </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONFIGURATION -->
+<section id="configuration">
+  <div class="section-label">Configuration</div>
+  <h2>Environment variables.</h2>
+  <p class="section-sub">Configure Vilvona AI via environment variables or the config file at <code style="font-family:monospace;background:var(--code-bg);padding:2px 7px;border-radius:4px;font-size:0.88em">~/.openclaw/config.json</code>.</p>
+
+  <div class="fade-up">
+    <table class="env-table">
+      <thead>
+        <tr>
+          <th>Variable</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ANTHROPIC_API_KEY</td>
+          <td>Your Anthropic API key (required). Get one at console.anthropic.com.</td>
+        </tr>
+        <tr>
+          <td>VILVONA_DEFAULT_MODEL</td>
+          <td>Default model alias: <code style="font-family:monospace;background:var(--bg2);padding:1px 5px;border-radius:3px">fable</code>, <code style="font-family:monospace;background:var(--bg2);padding:1px 5px;border-radius:3px">opus</code>, or <code style="font-family:monospace;background:var(--bg2);padding:1px 5px;border-radius:3px">sonnet</code>. Defaults to Fable 5.</td>
+        </tr>
+        <tr>
+          <td>VILVONA_PRO_KEY</td>
+          <td>Pro license key. Format: <code style="font-family:monospace;background:var(--bg2);padding:1px 5px;border-radius:3px">VLVN-XXXX-XXXX-XXXX-XXXX</code></td>
+        </tr>
+        <tr>
+          <td>OPENCLAW_PORT</td>
+          <td>Port to run on. Default: <code style="font-family:monospace;background:var(--bg2);padding:1px 5px;border-radius:3px">4000</code></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </section>
 
@@ -999,13 +1099,12 @@
     <a href="https://github.com/vignesh2027/Vilvona-AI/blob/main/CHANGELOG.md" target="_blank">Changelog</a>
   </div>
   <p class="footer-copy">
-    Built by <a href="https://github.com/vignesh2027">Vignesh S</a> · MIT Licensed ·
+    Built by <a href="https://github.com/vignesh2027">Vignesh S</a> &middot; MIT Licensed &middot;
     Based on <a href="https://github.com/openclaw/openclaw">OpenClaw</a>
   </p>
 </footer>
 
 <script>
-  // Copy to clipboard
   function copyCode(btn, text) {
     navigator.clipboard.writeText(text).then(() => {
       btn.textContent = 'Copied!';
@@ -1015,7 +1114,6 @@
         btn.classList.remove('copied');
       }, 2000);
     }).catch(() => {
-      // Fallback
       const ta = document.createElement('textarea');
       ta.value = text;
       document.body.appendChild(ta);
@@ -1031,14 +1129,11 @@
     });
   }
 
-  // Scroll fade-in
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-      }
+      if (e.isIntersecting) e.target.classList.add('visible');
     });
-  }, { threshold: 0.1 });
+  }, { threshold: 0.08 });
 
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 </script>
