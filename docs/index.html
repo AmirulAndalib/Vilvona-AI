@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vilvona AI — Your Personal AI That Connects Everything</title>
+  <meta name="description" content="Self-hosted personal AI powered by Claude Fable 5. Supports Tamil, Hindi, Mobile PWA. Run with npx vilvona." />
+  <meta property="og:title" content="Vilvona AI" />
+  <meta property="og:description" content="Your personal AI that connects everything. Powered by Claude Fable 5." />
+  <meta property="og:image" content="logo.png" />
+  <link rel="icon" href="logo.png" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --bg2: #111118;
+      --bg3: #16161f;
+      --purple: #8b5cf6;
+      --purple-light: #a78bfa;
+      --purple-dim: rgba(139,92,246,0.15);
+      --white: #f1f1f1;
+      --muted: #888;
+      --border: rgba(139,92,246,0.2);
+      --card: #13131c;
+      --code-bg: #0d0d16;
+      --radius: 12px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 40px;
+      background: rgba(10,10,10,0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo img { width: 32px; height: 32px; border-radius: 8px; }
+    .nav-logo span { font-weight: 700; font-size: 1.1rem; color: var(--white); }
+    .nav-links { display: flex; align-items: center; gap: 24px; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none; font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--purple-light); }
+    .nav-cta {
+      background: var(--purple); color: #fff !important;
+      padding: 8px 18px; border-radius: 8px; font-weight: 600;
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--purple-light) !important; color: #0a0a0a !important; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(139,92,246,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      animation: pulse 6s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: translate(-50%,-50%) scale(1); opacity: 0.7; }
+      50% { transform: translate(-50%,-50%) scale(1.15); opacity: 1; }
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .hero-logo {
+      width: 96px; height: 96px; border-radius: 20px;
+      margin-bottom: 28px;
+      box-shadow: 0 0 40px rgba(139,92,246,0.4);
+      position: relative; z-index: 1;
+    }
+    .hero h1 {
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #fff 0%, #c4b5fd 40%, #8b5cf6 100%);
+      background-size: 200% 200%;
+      animation: gradientShift 5s ease infinite;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      position: relative; z-index: 1;
+    }
+    .hero-tagline {
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto 32px;
+      position: relative; z-index: 1;
+    }
+    .hero-tagline strong { color: var(--purple-light); }
+
+    /* BADGES */
+    .badges {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      justify-content: center;
+      margin-bottom: 40px;
+      position: relative; z-index: 1;
+    }
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 500;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .badge:hover { border-color: var(--purple); color: var(--white); }
+    .badge .dot { width: 6px; height: 6px; border-radius: 50%; }
+    .badge-green .dot { background: #22c55e; }
+    .badge-orange .dot { background: #f97316; }
+    .badge-blue .dot { background: #3b82f6; }
+    .badge-purple .dot { background: var(--purple); }
+
+    /* COMMAND BOX */
+    .command-box {
+      display: flex; align-items: center;
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      gap: 12px;
+      font-family: 'SF Mono', 'Cascadia Code', 'Consolas', monospace;
+      font-size: 1.1rem;
+      max-width: 420px;
+      width: 100%;
+      margin: 0 auto 24px;
+      position: relative; z-index: 1;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .command-box:hover {
+      border-color: var(--purple);
+      box-shadow: 0 0 20px rgba(139,92,246,0.15);
+    }
+    .command-box .prompt { color: var(--purple); font-weight: 700; }
+    .command-box .cmd { color: #e2e8f0; flex: 1; }
+    .copy-btn {
+      background: var(--purple-dim);
+      border: 1px solid var(--border);
+      color: var(--purple-light);
+      border-radius: 6px;
+      padding: 4px 12px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+    .copy-btn:hover { background: var(--purple); color: #fff; }
+    .copy-btn.copied { background: #166534; color: #4ade80; border-color: #166534; }
+
+    .hero-actions {
+      display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+      position: relative; z-index: 1;
+    }
+    .btn-primary {
+      background: var(--purple);
+      color: #fff;
+      padding: 12px 28px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: background 0.2s, transform 0.1s;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-primary:hover { background: var(--purple-light); transform: translateY(-1px); }
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      padding: 12px 28px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border: 1px solid var(--border);
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--purple); background: var(--purple-dim); }
+
+    /* SECTIONS */
+    section { padding: 80px 24px; max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--purple);
+      margin-bottom: 12px;
+    }
+    h2 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800; letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      color: var(--muted); font-size: 1.05rem;
+      max-width: 560px; margin-bottom: 48px;
+    }
+
+    /* DIVIDER */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      max-width: 1100px; margin: 0 auto;
+    }
+
+    /* FEATURES GRID */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .feature-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .feature-card:hover {
+      border-color: var(--purple);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(139,92,246,0.12);
+    }
+    .feature-icon {
+      font-size: 2rem; margin-bottom: 14px;
+      display: block;
+    }
+    .feature-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
+    .feature-card p { color: var(--muted); font-size: 0.9rem; line-height: 1.6; }
+
+    /* QUICK START */
+    .quickstart-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+    @media (max-width: 768px) { .quickstart-grid { grid-template-columns: 1fr; } }
+    .step { display: flex; gap: 16px; margin-bottom: 24px; align-items: flex-start; }
+    .step-num {
+      width: 32px; height: 32px; min-width: 32px;
+      background: var(--purple-dim);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem; font-weight: 700; color: var(--purple-light);
+    }
+    .step-content h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 6px; }
+    .step-content p { color: var(--muted); font-size: 0.875rem; }
+
+    /* CODE BLOCK */
+    .code-block {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .code-header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+    }
+    .code-header span { font-size: 0.78rem; color: var(--muted); font-family: monospace; }
+    .code-body {
+      padding: 20px;
+      font-family: 'SF Mono', 'Cascadia Code', 'Consolas', monospace;
+      font-size: 0.85rem;
+      line-height: 1.8;
+      overflow-x: auto;
+    }
+    .code-body .c { color: #6b7280; }
+    .code-body .k { color: #c084fc; }
+    .code-body .s { color: #86efac; }
+    .code-body .v { color: #60a5fa; }
+
+    /* LANGUAGES TABLE */
+    .lang-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--card);
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .lang-table th {
+      background: rgba(139,92,246,0.1);
+      padding: 14px 20px;
+      text-align: left;
+      font-size: 0.8rem; font-weight: 700;
+      color: var(--purple-light);
+      letter-spacing: 0.06em; text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+    }
+    .lang-table td {
+      padding: 14px 20px;
+      border-bottom: 1px solid rgba(139,92,246,0.08);
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .lang-table tr:last-child td { border-bottom: none; }
+    .lang-table tr.highlight td { color: var(--white); background: rgba(139,92,246,0.06); }
+    .lang-table tr:hover td { background: rgba(139,92,246,0.04); }
+    .lang-native { color: var(--purple-light); font-weight: 600; }
+    .tag-featured {
+      background: var(--purple);
+      color: #fff;
+      font-size: 0.7rem; font-weight: 700;
+      padding: 2px 8px; border-radius: 10px;
+      margin-left: 8px;
+    }
+    .tag-new {
+      background: #166534;
+      color: #4ade80;
+      font-size: 0.7rem; font-weight: 700;
+      padding: 2px 8px; border-radius: 10px;
+      margin-left: 8px;
+    }
+
+    /* PRO TIER */
+    .pro-section { background: var(--bg2); }
+    .pro-wrapper {
+      max-width: 1100px; margin: 0 auto;
+      padding: 80px 24px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;
+    }
+    @media (max-width: 768px) { .pro-wrapper { grid-template-columns: 1fr; } }
+    .pro-card {
+      background: linear-gradient(135deg, #1a0a2e, #13131c);
+      border: 1px solid rgba(139,92,246,0.4);
+      border-radius: 16px;
+      padding: 36px;
+      box-shadow: 0 0 60px rgba(139,92,246,0.1);
+      position: relative; overflow: hidden;
+    }
+    .pro-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--purple), var(--purple-light), var(--purple));
+    }
+    .pro-price {
+      font-size: 3rem; font-weight: 900;
+      color: var(--white); margin-bottom: 4px;
+    }
+    .pro-price span { font-size: 1.2rem; color: var(--muted); font-weight: 400; }
+    .pro-note { color: var(--muted); font-size: 0.85rem; margin-bottom: 28px; }
+    .pro-features { list-style: none; margin-bottom: 28px; }
+    .pro-features li {
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 0.9rem;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .pro-features li:last-child { border-bottom: none; }
+    .check { color: #4ade80; font-weight: 700; }
+    .dash { color: var(--muted); }
+    .btn-pro {
+      display: block; text-align: center;
+      background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+      color: #fff; text-decoration: none;
+      padding: 14px 24px; border-radius: 10px;
+      font-weight: 700; font-size: 1rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(139,92,246,0.3);
+    }
+    .btn-pro:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(139,92,246,0.4); }
+    .pro-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .pro-table th {
+      padding: 10px 12px; text-align: left;
+      font-size: 0.78rem; color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .pro-table td {
+      padding: 12px;
+      font-size: 0.88rem;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      color: var(--muted);
+    }
+    .pro-table td:first-child { color: var(--white); }
+    .pro-table tr:last-child td { border-bottom: none; }
+
+    /* INSTALL */
+    .install-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .install-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .install-card:hover { border-color: var(--purple); }
+    .install-card-header {
+      padding: 20px 24px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .install-card-header .icon { font-size: 1.4rem; }
+    .install-card-header h3 { font-size: 0.95rem; font-weight: 700; }
+
+    /* FOOTER */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 48px 24px 32px;
+      text-align: center;
+    }
+    .footer-logo { display: flex; align-items: center; gap: 8px; justify-content: center; margin-bottom: 16px; }
+    .footer-logo img { width: 28px; border-radius: 6px; }
+    .footer-logo span { font-weight: 700; font-size: 1rem; }
+    .footer-links {
+      display: flex; gap: 24px; flex-wrap: wrap; justify-content: center;
+      margin-bottom: 24px;
+    }
+    .footer-links a {
+      color: var(--muted); text-decoration: none; font-size: 0.875rem;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--purple-light); }
+    .footer-copy { color: var(--muted); font-size: 0.8rem; }
+    .footer-copy a { color: var(--purple-light); text-decoration: none; }
+
+    /* SCROLL ANIMATION */
+    .fade-up {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* MOBILE NAV */
+    @media (max-width: 640px) {
+      nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+      section { padding: 60px 20px; }
+      .features-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <img src="logo.png" alt="Vilvona AI Logo" />
+    <span>Vilvona AI</span>
+  </a>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#quickstart">Quickstart</a>
+    <a href="#languages">Languages</a>
+    <a href="#pro">Pro</a>
+    <a href="#install">Install</a>
+    <a href="https://github.com/vignesh2027/Vilvona-AI" target="_blank" class="nav-cta">GitHub</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-glow"></div>
+  <img class="hero-logo" src="logo.png" alt="Vilvona AI" />
+  <h1>Vilvona AI</h1>
+  <p class="hero-tagline">
+    Your personal AI that connects everything.<br />
+    Powered by <strong>Claude Fable 5</strong>. Self-hosted. BYOK. Mobile PWA.
+  </p>
+
+  <div class="badges">
+    <span class="badge badge-green"><span class="dot"></span>MIT License</span>
+    <span class="badge badge-orange"><span class="dot"></span>npm: vilvona</span>
+    <span class="badge badge-blue"><span class="dot"></span>Node 22+</span>
+    <span class="badge badge-purple"><span class="dot"></span>Claude Fable 5</span>
+  </div>
+
+  <div class="command-box">
+    <span class="prompt">$</span>
+    <span class="cmd">npx vilvona</span>
+    <button class="copy-btn" onclick="copyCode(this, 'npx vilvona')">Copy</button>
+  </div>
+
+  <div class="hero-actions">
+    <a href="#quickstart" class="btn-primary">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Get Started
+    </a>
+    <a href="https://github.com/vignesh2027/Vilvona-AI" class="btn-secondary" target="_blank">
+      View on GitHub →
+    </a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="section-label">Features</div>
+  <h2>Everything you need, nothing you don't.</h2>
+  <p class="section-sub">Run your own AI assistant with Claude Fable 5 at its core. No cloud lock-in, no accounts, no tracking.</p>
+
+  <div class="features-grid fade-up">
+    <div class="feature-card">
+      <span class="feature-icon">🧠</span>
+      <h3>Claude Fable 5</h3>
+      <p>Default model with 1M context window, computer use, and best-in-class reasoning. Always the frontier.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🇮🇳</span>
+      <h3>Tamil &amp; Hindi UI</h3>
+      <p>First AI assistant with native Tamil (தமிழ்) and Hindi (हिन्दी) interface. Built for India, works globally.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">📱</span>
+      <h3>Mobile PWA</h3>
+      <p>Install directly from your browser on iOS or Android — no app store needed. Works offline too.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🔑</span>
+      <h3>BYOK — Bring Your Own Key</h3>
+      <p>Use your own Anthropic API key. Pay per token directly. Vilvona never sees your data or billing.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🏠</span>
+      <h3>Fully Self-Hosted</h3>
+      <p>Runs entirely on your machine or server. No cloud, no accounts, no telemetry. You own everything.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🔌</span>
+      <h3>100+ Integrations</h3>
+      <p>WhatsApp, Telegram, Slack, Discord, Gmail, Notion, GitHub and more — all connected through one interface.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🌍</span>
+      <h3>21 Languages</h3>
+      <p>Tamil, Hindi, English, Chinese, Japanese, Korean, Arabic, French, German, Spanish and 11 more.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">⚡</span>
+      <h3>npx Ready</h3>
+      <p>One command to start. No global install required. Always runs the latest version automatically.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🐋</span>
+      <h3>Docker Support</h3>
+      <p>Containerized deployment with a single <code style="color:var(--purple-light);font-size:0.85em">docker run</code> command. Ready for VPS, cloud, and CI environments.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- QUICK START -->
+<section id="quickstart">
+  <div class="section-label">Quick Start</div>
+  <h2>Up and running in 60 seconds.</h2>
+  <p class="section-sub">No configuration needed to get started. Just your Anthropic API key.</p>
+
+  <div class="quickstart-grid">
+    <div class="fade-up">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h4>Run with npx</h4>
+          <p>No install required. Pulls the latest version automatically.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h4>Set your API key</h4>
+          <p>Get a free key at <a href="https://console.anthropic.com" style="color:var(--purple-light)">console.anthropic.com</a> — pay per token.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h4>Open the interface</h4>
+          <p>Visit <strong style="color:var(--white)">http://localhost:4000</strong> in your browser. Done.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h4>Install on mobile (optional)</h4>
+          <p>Open <strong style="color:var(--white)">http://your-ip:4000</strong> on your phone → "Add to Home Screen".</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="fade-up">
+      <div class="code-block">
+        <div class="code-header">
+          <span>bash</span>
+          <button class="copy-btn" onclick="copyCode(this, `# Run instantly — no install needed\nnpx vilvona\n\n# Or install globally\nnpm install -g vilvona\nvilvona`)">Copy</button>
+        </div>
+        <div class="code-body">
+          <span class="c"># Run instantly — no install needed</span><br/>
+          <span class="k">npx</span> <span class="s">vilvona</span><br/><br/>
+          <span class="c"># Or install globally</span><br/>
+          <span class="k">npm install</span> <span class="v">-g</span> <span class="s">vilvona</span><br/>
+          <span class="k">vilvona</span>
+        </div>
+      </div>
+
+      <div class="code-block" style="margin-top:16px">
+        <div class="code-header">
+          <span>bash — set API key</span>
+          <button class="copy-btn" onclick="copyCode(this, 'export ANTHROPIC_API_KEY=sk-ant-...\nnpx vilvona')">Copy</button>
+        </div>
+        <div class="code-body">
+          <span class="k">export</span> <span class="v">ANTHROPIC_API_KEY</span>=<span class="s">sk-ant-...</span><br/>
+          <span class="k">npx</span> <span class="s">vilvona</span>
+        </div>
+      </div>
+
+      <div class="code-block" style="margin-top:16px">
+        <div class="code-header">
+          <span>json — ~/.openclaw/config.json</span>
+          <button class="copy-btn" onclick="copyCode(this, `{\n  \"defaults\": {\n    \"model\": \"anthropic/claude-fable-5\"\n  },\n  \"ui\": {\n    \"language\": \"ta\"\n  }\n}`)">Copy</button>
+        </div>
+        <div class="code-body">
+          {<br/>
+          &nbsp;&nbsp;<span class="v">"defaults"</span>: {<br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="v">"model"</span>: <span class="s">"anthropic/claude-fable-5"</span><br/>
+          &nbsp;&nbsp;},<br/>
+          &nbsp;&nbsp;<span class="v">"ui"</span>: {<br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="v">"language"</span>: <span class="s">"ta"</span>&nbsp;&nbsp;<span class="c">// Tamil</span><br/>
+          &nbsp;&nbsp;}<br/>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- LANGUAGES -->
+<section id="languages">
+  <div class="section-label">Languages</div>
+  <h2>Built for the world. Built for India.</h2>
+  <p class="section-sub">Native Tamil and Hindi UI — the first AI assistant to truly speak India's languages.</p>
+
+  <div class="fade-up">
+    <table class="lang-table">
+      <thead>
+        <tr>
+          <th>Language</th>
+          <th>Native Script</th>
+          <th>Code</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="highlight">
+          <td><strong>Tamil</strong><span class="tag-featured">Featured</span></td>
+          <td class="lang-native">தமிழ்</td>
+          <td><code style="color:var(--muted);font-size:0.82em">ta</code></td>
+          <td><span style="color:#4ade80">✓ Full UI</span></td>
+        </tr>
+        <tr class="highlight">
+          <td><strong>Hindi</strong><span class="tag-featured">Featured</span></td>
+          <td class="lang-native">हिन्दी</td>
+          <td><code style="color:var(--muted);font-size:0.82em">hi</code></td>
+          <td><span style="color:#4ade80">✓ Full UI</span></td>
+        </tr>
+        <tr>
+          <td>English</td>
+          <td>English</td>
+          <td><code style="color:var(--muted);font-size:0.82em">en</code></td>
+          <td><span style="color:#4ade80">✓ Default</span></td>
+        </tr>
+        <tr>
+          <td>Chinese (Simplified)</td>
+          <td>中文</td>
+          <td><code style="color:var(--muted);font-size:0.82em">zh</code></td>
+          <td><span style="color:#4ade80">✓ Supported</span></td>
+        </tr>
+        <tr>
+          <td>Japanese</td>
+          <td>日本語</td>
+          <td><code style="color:var(--muted);font-size:0.82em">ja</code></td>
+          <td><span style="color:#4ade80">✓ Supported</span></td>
+        </tr>
+        <tr>
+          <td>Korean</td>
+          <td>한국어</td>
+          <td><code style="color:var(--muted);font-size:0.82em">ko</code></td>
+          <td><span style="color:#4ade80">✓ Supported</span></td>
+        </tr>
+        <tr>
+          <td>Arabic</td>
+          <td>العربية</td>
+          <td><code style="color:var(--muted);font-size:0.82em">ar</code></td>
+          <td><span style="color:#4ade80">✓ Supported</span></td>
+        </tr>
+        <tr>
+          <td>French</td>
+          <td>Français</td>
+          <td><code style="color:var(--muted);font-size:0.82em">fr</code></td>
+          <td><span style="color:#4ade80">✓ Supported</span></td>
+        </tr>
+        <tr>
+          <td>German</td>
+          <td>Deutsch</td>
+          <td><code style="color:var(--muted);font-size:0.82em">de</code></td>
+          <td><span style="color:#4ade80">✓ Supported</span></td>
+        </tr>
+        <tr>
+          <td>Spanish</td>
+          <td>Español</td>
+          <td><code style="color:var(--muted);font-size:0.82em">es</code></td>
+          <td><span style="color:#4ade80">✓ Supported</span></td>
+        </tr>
+        <tr>
+          <td colspan="3" style="color:var(--muted);font-style:italic">+ 11 more languages</td>
+          <td><span style="color:var(--muted)">21 total</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PRO TIER -->
+<div class="pro-section" id="pro">
+  <div class="pro-wrapper">
+    <div class="fade-up">
+      <div class="section-label">Pro Tier</div>
+      <h2>Unlock the full power of Vilvona AI.</h2>
+      <p style="color:var(--muted);margin-bottom:28px">One-time purchase. No subscriptions, no monthly fees. Lifetime access to Pro features.</p>
+
+      <table class="pro-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Free</th>
+            <th>Pro</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Claude Fable 5</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>All integrations</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Tamil &amp; Hindi UI</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Mobile PWA</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Enterprise audit logs</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Team config sync</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Priority Fable 5 routing</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Custom AI personas (unlimited)</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Webhook &amp; Zapier integrations</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>White-label branding</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="fade-up">
+      <div class="pro-card">
+        <div style="font-size:0.8rem;font-weight:700;color:var(--purple-light);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:12px">Vilvona AI Pro</div>
+        <div class="pro-price">₹4,100 <span>one-time</span></div>
+        <div class="pro-note">~$49 USD · No subscription · Lifetime access</div>
+
+        <ul class="pro-features">
+          <li><span class="check">✓</span> Enterprise audit logs &amp; analytics</li>
+          <li><span class="check">✓</span> Team config sync across devices</li>
+          <li><span class="check">✓</span> Priority Claude Fable 5 routing</li>
+          <li><span class="check">✓</span> Unlimited custom AI personas</li>
+          <li><span class="check">✓</span> Webhook &amp; Zapier integrations</li>
+          <li><span class="check">✓</span> White-label branding</li>
+          <li><span class="check">✓</span> Lifetime updates included</li>
+        </ul>
+
+        <a href="https://vignesh2027.mojo.page/vilvona-ai-pro" class="btn-pro" target="_blank">
+          Get Pro — ₹4,100 →
+        </a>
+
+        <div style="margin-top:20px">
+          <div class="code-block">
+            <div class="code-header">
+              <span>bash — activate pro key</span>
+              <button class="copy-btn" onclick="copyCode(this, 'export VILVONA_PRO_KEY=VLVN-XXXX-XXXX-XXXX-XXXX\nvilvona')">Copy</button>
+            </div>
+            <div class="code-body" style="font-size:0.8rem">
+              <span class="k">export</span> <span class="v">VILVONA_PRO_KEY</span>=<span class="s">VLVN-XXXX-XXXX-XXXX-XXXX</span><br/>
+              <span class="k">vilvona</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INSTALL -->
+<section id="install">
+  <div class="section-label">Install</div>
+  <h2>Multiple ways to run Vilvona AI.</h2>
+  <p class="section-sub">From a quick npx command to a full Docker deployment — choose what works for you.</p>
+
+  <div class="install-grid fade-up">
+    <div class="install-card">
+      <div class="install-card-header">
+        <span class="icon">⚡</span>
+        <h3>npx (Recommended)</h3>
+      </div>
+      <div class="code-block" style="border:none;border-radius:0">
+        <div class="code-header">
+          <span>No install needed</span>
+          <button class="copy-btn" onclick="copyCode(this, 'npx vilvona')">Copy</button>
+        </div>
+        <div class="code-body">
+          <span class="k">npx</span> <span class="s">vilvona</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="install-card">
+      <div class="install-card-header">
+        <span class="icon">📦</span>
+        <h3>npm global</h3>
+      </div>
+      <div class="code-block" style="border:none;border-radius:0">
+        <div class="code-header">
+          <span>Permanent install</span>
+          <button class="copy-btn" onclick="copyCode(this, 'npm install -g vilvona\nvilvona')">Copy</button>
+        </div>
+        <div class="code-body">
+          <span class="k">npm install</span> <span class="v">-g</span> <span class="s">vilvona</span><br/>
+          <span class="k">vilvona</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="install-card">
+      <div class="install-card-header">
+        <span class="icon">🐋</span>
+        <h3>Docker</h3>
+      </div>
+      <div class="code-block" style="border:none;border-radius:0">
+        <div class="code-header">
+          <span>Container deployment</span>
+          <button class="copy-btn" onclick="copyCode(this, 'docker run -e ANTHROPIC_API_KEY=sk-ant-... -p 4000:4000 ghcr.io/vignesh2027/vilvona-ai')">Copy</button>
+        </div>
+        <div class="code-body" style="font-size:0.78rem">
+          <span class="k">docker run</span> \<br/>
+          &nbsp;&nbsp;<span class="v">-e</span> <span class="s">ANTHROPIC_API_KEY</span>=sk-ant-... \<br/>
+          &nbsp;&nbsp;<span class="v">-p</span> 4000:4000 \<br/>
+          &nbsp;&nbsp;ghcr.io/vignesh2027/vilvona-ai
+        </div>
+      </div>
+    </div>
+
+    <div class="install-card">
+      <div class="install-card-header">
+        <span class="icon">🍺</span>
+        <h3>From Source</h3>
+      </div>
+      <div class="code-block" style="border:none;border-radius:0">
+        <div class="code-header">
+          <span>Clone &amp; run</span>
+          <button class="copy-btn" onclick="copyCode(this, 'git clone https://github.com/vignesh2027/Vilvona-AI\ncd Vilvona-AI\nnpm install\nnpm start')">Copy</button>
+        </div>
+        <div class="code-body" style="font-size:0.82rem">
+          <span class="k">git clone</span> <span class="s">https://github.com/vignesh2027/Vilvona-AI</span><br/>
+          <span class="k">cd</span> Vilvona-AI<br/>
+          <span class="k">npm install</span><br/>
+          <span class="k">npm start</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <img src="logo.png" alt="Vilvona AI" />
+    <span>Vilvona AI</span>
+  </div>
+  <div class="footer-links">
+    <a href="https://github.com/vignesh2027/Vilvona-AI" target="_blank">GitHub</a>
+    <a href="https://npmjs.com/package/vilvona" target="_blank">npm</a>
+    <a href="https://vignesh2027.mojo.page/vilvona-ai-pro" target="_blank">Pro</a>
+    <a href="https://github.com/vignesh2027/Vilvona-AI/blob/main/LICENSE" target="_blank">MIT License</a>
+    <a href="https://github.com/vignesh2027/Vilvona-AI/blob/main/SECURITY.md" target="_blank">Security</a>
+    <a href="https://github.com/vignesh2027/Vilvona-AI/blob/main/CHANGELOG.md" target="_blank">Changelog</a>
+  </div>
+  <p class="footer-copy">
+    Built by <a href="https://github.com/vignesh2027">Vignesh S</a> · MIT Licensed ·
+    Based on <a href="https://github.com/openclaw/openclaw">OpenClaw</a>
+  </p>
+</footer>
+
+<script>
+  // Copy to clipboard
+  function copyCode(btn, text) {
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'Copy';
+        btn.classList.remove('copied');
+      }, 2000);
+    }).catch(() => {
+      // Fallback
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'Copy';
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+
+  // Scroll fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

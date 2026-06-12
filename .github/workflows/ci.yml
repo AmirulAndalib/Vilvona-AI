@@ -7,6 +7,91 @@ on:
     branches: [main]
 
 jobs:
+  validate:
+    name: Validate Vilvona modules
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate package.json
+        run: |
+          node - <<'SCRIPT'
+          const pkg = require('./package.json');
+          const checks = {
+            'name is vilvona': pkg.name === 'vilvona',
+            'bin.vilvona set': !!pkg.bin?.vilvona,
+            'engines.node set': !!pkg.engines?.node,
+            'license MIT': pkg.license === 'MIT',
+            'author set': !!pkg.author,
+            'repo URL correct': pkg.repository?.url?.includes('Vilvona-AI'),
+            'homepage correct': (pkg.homepage || '').includes('Vilvona-AI'),
+          };
+          let pass = true;
+          for (const [k, v] of Object.entries(checks)) {
+            console.log((v ? 'PASS' : 'FAIL') + ': ' + k);
+            if (!v) pass = false;
+          }
+          if (!pass) process.exit(1);
+          SCRIPT
+
+      - name: Validate launcher
+        run: |
+          node --check openclaw.mjs && echo "PASS: openclaw.mjs syntax ok"
+          grep -q "vilvona" openclaw.mjs && echo "PASS: openclaw.mjs rebranded"
+          grep -q "MIN_MAJOR" openclaw.mjs && echo "PASS: Node version check present"
+          grep -q "win32" openclaw.mjs && echo "PASS: Windows signal handling present"
+          grep -q "VILVONA" openclaw.mjs && echo "PASS: VILVONA env vars present"
+
+      - name: Validate PWA manifest
+        run: |
+          node - <<'SCRIPT'
+          const fs = require('fs');
+          const m = JSON.parse(fs.readFileSync('./ui/public/manifest.webmanifest', 'utf8'));
+          if (m.name !== 'Vilvona AI') { console.error('FAIL: manifest name: ' + m.name); process.exit(1); }
+          if (!m.shortcuts || !m.shortcuts.length) { console.error('FAIL: shortcuts missing'); process.exit(1); }
+          console.log('PASS: manifest.webmanifest — name:', m.name, 'shortcuts:', m.shortcuts.length);
+          SCRIPT
+
+      - name: Validate locales
+        run: |
+          test -f ui/src/i18n/locales/ta.ts && echo "PASS: ta.ts exists"
+          test -f ui/src/i18n/locales/hi.ts && echo "PASS: hi.ts exists"
+          grep -q '"ta"' ui/src/i18n/lib/registry.ts && echo "PASS: Tamil in registry"
+          grep -q '"hi"' ui/src/i18n/lib/registry.ts && echo "PASS: Hindi in registry"
+          grep -q '"ta"' ui/src/i18n/lib/types.ts && echo "PASS: Tamil in types"
+          grep -q '"hi"' ui/src/i18n/lib/types.ts && echo "PASS: Hindi in types"
+
+      - name: Validate Fable 5 config
+        run: |
+          grep -q "claude-fable-5" src/config/defaults.ts && echo "PASS: Fable 5 in defaults"
+          grep -q "claude-fable-5" src/agents/live-model-filter.ts && echo "PASS: Fable 5 in live-filter"
+          grep -q "fable:" src/config/defaults.ts && echo "PASS: fable alias set"
+
+      - name: Validate Pro module
+        run: |
+          test -f src/pro/license.ts && echo "PASS: license.ts exists"
+          test -f src/pro/pro-features.ts && echo "PASS: pro-features.ts exists"
+          grep -q "VLVN-" src/pro/license.ts && echo "PASS: VLVN key format present"
+          grep -q "VILVONA_PRO_KEY" src/pro/license.ts && echo "PASS: env var name correct"
+
+      - name: Validate FUNDING and docs
+        run: |
+          grep -q "vignesh2027" .github/FUNDING.yml && echo "PASS: FUNDING.yml has sponsor"
+          grep -q "mojo.page" .github/FUNDING.yml && echo "PASS: Instamojo link in FUNDING"
+          test -f docs/index.html && echo "PASS: GitHub Pages index.html exists"
+          test -f docs/.nojekyll && echo "PASS: .nojekyll present"
+          grep -q "Vilvona AI" docs/index.html && echo "PASS: docs branded correctly"
+
+      - name: All checks passed
+        run: echo "All Vilvona AI module checks passed"
+
   docker-build:
     name: Docker Build
     runs-on: ubuntu-latest
@@ -26,71 +111,3 @@ jobs:
           tags: vilvona-ai:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
-
-  validate:
-    name: Validate Vilvona modules
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      - name: Validate package.json
-        run: |
-          node -e "
-            const pkg = require('./package.json');
-            if (pkg.name !== 'vilvona') throw new Error('package name must be vilvona');
-            if (!pkg.bin?.vilvona) throw new Error('bin.vilvona missing');
-            if (!pkg.repository?.url?.includes('Vilvona-AI')) throw new Error('wrong repo URL');
-            console.log('package.json OK — name:', pkg.name, 'version:', pkg.version);
-          "
-
-      - name: Validate bin entry point
-        run: |
-          test -f openclaw.mjs || (echo "ERROR: openclaw.mjs missing" && exit 1)
-          grep -q "vilvona" openclaw.mjs || (echo "ERROR: openclaw.mjs not rebranded" && exit 1)
-          echo "openclaw.mjs OK"
-
-      - name: Validate PWA manifest
-        run: |
-          node -e "
-            const m = require('./ui/public/manifest.webmanifest');
-            if (m.name !== 'Vilvona AI') throw new Error('manifest name wrong: ' + m.name);
-            if (!m.shortcuts?.length) throw new Error('shortcuts missing');
-            console.log('manifest.webmanifest OK — name:', m.name);
-          "
-
-      - name: Validate locales exist
-        run: |
-          test -f ui/src/i18n/locales/ta.ts || (echo "ERROR: Tamil locale missing" && exit 1)
-          test -f ui/src/i18n/locales/hi.ts || (echo "ERROR: Hindi locale missing" && exit 1)
-          grep -q "ta" ui/src/i18n/lib/registry.ts || (echo "ERROR: Tamil not in registry" && exit 1)
-          grep -q "hi" ui/src/i18n/lib/registry.ts || (echo "ERROR: Hindi not in registry" && exit 1)
-          echo "Locales OK — ta.ts, hi.ts present and registered"
-
-      - name: Validate Pro module
-        run: |
-          test -f src/pro/license.ts || (echo "ERROR: Pro license module missing" && exit 1)
-          test -f src/pro/pro-features.ts || (echo "ERROR: Pro features module missing" && exit 1)
-          grep -q "VLVN-" src/pro/license.ts || (echo "ERROR: Pro key format missing" && exit 1)
-          echo "Pro module OK"
-
-      - name: Validate Fable 5 config
-        run: |
-          grep -q "claude-fable-5" src/config/defaults.ts || (echo "ERROR: Fable 5 not in defaults" && exit 1)
-          grep -q "claude-fable-5" src/agents/live-model-filter.ts || (echo "ERROR: Fable 5 not in live filter" && exit 1)
-          echo "Fable 5 config OK"
-
-      - name: Validate FUNDING.yml
-        run: |
-          test -f .github/FUNDING.yml || (echo "ERROR: FUNDING.yml missing" && exit 1)
-          grep -q "vignesh2027" .github/FUNDING.yml || (echo "ERROR: GitHub sponsor missing" && exit 1)
-          echo "FUNDING.yml OK"
-
-      - name: All checks passed
-        run: echo "All Vilvona AI module checks passed"
