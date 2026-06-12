@@ -2,16 +2,16 @@
   "name": "vilvona",
   "version": "1.0.0",
   "description": "Vilvona AI — Your personal AI that connects everything. Claude Fable 5 powered, works on mobile, Tamil & Hindi support.",
-  "keywords": ["ai", "assistant", "claude", "fable5", "personal-ai", "whatsapp", "telegram", "slack", "tamil", "hindi"],
-  "homepage": "https://github.com/vignesh2027/VilvonaAI#readme",
+  "keywords": ["ai", "assistant", "claude", "fable5", "personal-ai", "whatsapp", "telegram", "slack", "tamil", "hindi", "self-hosted", "open-source", "chatbot", "automation"],
+  "homepage": "https://github.com/vignesh2027/Vilvona-AI#readme",
   "bugs": {
-    "url": "https://github.com/vignesh2027/VilvonaAI/issues"
+    "url": "https://github.com/vignesh2027/Vilvona-AI/issues"
   },
   "license": "MIT",
   "author": "Vignesh S <lkvarnesh@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vignesh2027/VilvonaAI.git"
+    "url": "git+https://github.com/vignesh2027/Vilvona-AI.git"
   },
   "bin": {
     "vilvona": "openclaw.mjs"

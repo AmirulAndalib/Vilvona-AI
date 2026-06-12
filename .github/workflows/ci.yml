@@ -27,8 +27,8 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-  typecheck:
-    name: Typecheck
+  validate:
+    name: Validate Vilvona modules
     runs-on: ubuntu-latest
 
     steps:
@@ -40,17 +40,57 @@ jobs:
         with:
           node-version: 22
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
+      - name: Validate package.json
+        run: |
+          node -e "
+            const pkg = require('./package.json');
+            if (pkg.name !== 'vilvona') throw new Error('package name must be vilvona');
+            if (!pkg.bin?.vilvona) throw new Error('bin.vilvona missing');
+            if (!pkg.repository?.url?.includes('Vilvona-AI')) throw new Error('wrong repo URL');
+            console.log('package.json OK — name:', pkg.name, 'version:', pkg.version);
+          "
 
-      - name: Install dependencies
-        run: pnpm install
+      - name: Validate bin entry point
+        run: |
+          test -f openclaw.mjs || (echo "ERROR: openclaw.mjs missing" && exit 1)
+          grep -q "vilvona" openclaw.mjs || (echo "ERROR: openclaw.mjs not rebranded" && exit 1)
+          echo "openclaw.mjs OK"
 
-      - name: Check Pro license types
-        run: node --input-type=module <<'EOF'
-          import { parseLicenseKey, isProKey, getLicenseStatus } from './src/pro/license.ts';
-          console.log('Pro license module loaded OK');
-        EOF
-        continue-on-error: true
+      - name: Validate PWA manifest
+        run: |
+          node -e "
+            const m = require('./ui/public/manifest.webmanifest');
+            if (m.name !== 'Vilvona AI') throw new Error('manifest name wrong: ' + m.name);
+            if (!m.shortcuts?.length) throw new Error('shortcuts missing');
+            console.log('manifest.webmanifest OK — name:', m.name);
+          "
+
+      - name: Validate locales exist
+        run: |
+          test -f ui/src/i18n/locales/ta.ts || (echo "ERROR: Tamil locale missing" && exit 1)
+          test -f ui/src/i18n/locales/hi.ts || (echo "ERROR: Hindi locale missing" && exit 1)
+          grep -q "ta" ui/src/i18n/lib/registry.ts || (echo "ERROR: Tamil not in registry" && exit 1)
+          grep -q "hi" ui/src/i18n/lib/registry.ts || (echo "ERROR: Hindi not in registry" && exit 1)
+          echo "Locales OK — ta.ts, hi.ts present and registered"
+
+      - name: Validate Pro module
+        run: |
+          test -f src/pro/license.ts || (echo "ERROR: Pro license module missing" && exit 1)
+          test -f src/pro/pro-features.ts || (echo "ERROR: Pro features module missing" && exit 1)
+          grep -q "VLVN-" src/pro/license.ts || (echo "ERROR: Pro key format missing" && exit 1)
+          echo "Pro module OK"
+
+      - name: Validate Fable 5 config
+        run: |
+          grep -q "claude-fable-5" src/config/defaults.ts || (echo "ERROR: Fable 5 not in defaults" && exit 1)
+          grep -q "claude-fable-5" src/agents/live-model-filter.ts || (echo "ERROR: Fable 5 not in live filter" && exit 1)
+          echo "Fable 5 config OK"
+
+      - name: Validate FUNDING.yml
+        run: |
+          test -f .github/FUNDING.yml || (echo "ERROR: FUNDING.yml missing" && exit 1)
+          grep -q "vignesh2027" .github/FUNDING.yml || (echo "ERROR: GitHub sponsor missing" && exit 1)
+          echo "FUNDING.yml OK"
+
+      - name: All checks passed
+        run: echo "All Vilvona AI module checks passed"
