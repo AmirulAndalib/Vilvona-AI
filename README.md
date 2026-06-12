@@ -213,8 +213,8 @@ MIT. Built on [OpenClaw](https://github.com/openclaw/openclaw) (also MIT). Attri
 
 <div align="center">
 
-Built by **[Vignesh S](https://github.com/vignesh2027)**  
-CSE, Takshashila University, Chennai
+Built by **[Vigneshwar L](https://github.com/vignesh2027)**  
+CSE,  Chennai
 
 [Docs](https://vignesh2027.github.io/Vilvona-AI) &nbsp;·&nbsp;
 [Issues](https://github.com/vignesh2027/Vilvona-AI/issues) &nbsp;·&nbsp;
