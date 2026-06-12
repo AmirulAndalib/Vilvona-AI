@@ -16,7 +16,6 @@
   "bin": {
     "vilvona": "openclaw.mjs"
   },
-  "main": "openclaw.mjs",
   "directories": {
     "doc": "docs",
     "test": "test"
@@ -1626,7 +1625,7 @@
     "postinstall": "node scripts/postinstall-bundled-plugins.mjs",
     "postpack": "node scripts/package-changelog.mjs restore",
     "preinstall": "node scripts/preinstall-package-manager-warning.mjs",
-    "prepack": "node --import tsx scripts/openclaw-prepack.ts",
+    "prepack": "echo 'skipping prepack for vilvona npm publish'",
     "prepare": "node scripts/prepare-git-hooks.mjs",
     "prepush:ci": "bash scripts/prepush-ci.sh",
     "probe:anthropic:prompt": "node --import tsx scripts/anthropic-prompt-probe.ts",
