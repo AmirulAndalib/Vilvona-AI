@@ -16,7 +16,7 @@ const VILVONA_VERSION = (() => {
   try {
     return _require("./package.json").version;
   } catch {
-    return "1.0.7";
+    return "1.0.8";
   }
 })();
 

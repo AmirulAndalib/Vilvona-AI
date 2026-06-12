@@ -1,5 +1,5 @@
 // Vilvona AI Pro — license key validation
-// Pro keys are sold at https://vilvona.gumroad.com/l/pro
+// Pro keys are sold at https://vignesh2027.mojo.page/vilvona-ai-pro
 // Format: VLVN-XXXX-XXXX-XXXX-XXXX
 
 const PRO_KEY_PREFIX = "VLVN-";
@@ -36,7 +36,7 @@ export function assertProFeature(featureName: string, status: LicenseStatus): vo
   if (status.tier !== "pro") {
     throw new Error(
       `"${featureName}" requires Vilvona AI Pro.\n` +
-        `Get your license key at https://vilvona.gumroad.com/l/pro\n` +
+        `Get your license key at https://vignesh2027.mojo.page/vilvona-ai-pro\n` +
         `Then set: VILVONA_PRO_KEY=VLVN-XXXX-XXXX-XXXX-XXXX`,
     );
   }

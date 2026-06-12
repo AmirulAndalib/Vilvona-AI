@@ -1,35 +1,54 @@
 <div align="center">
 
-<img src="ui/public/logo1.png" alt="Vilvona AI" width="110" />
+<img src="ui/public/logo1.png" alt="Vilvona AI" width="100" />
 
 # Vilvona AI
 
-**Your personal AI that connects everything.**
-
-[![npm version](https://img.shields.io/npm/v/vilvona?label=npm&color=22c55e)](https://www.npmjs.com/package/vilvona)
-[![License: MIT](https://img.shields.io/badge/license-MIT-22c55e.svg)](LICENSE)
+[![npm](https://img.shields.io/npm/v/vilvona?color=22c55e&label=npm)](https://www.npmjs.com/package/vilvona)
+[![MIT](https://img.shields.io/badge/license-MIT-22c55e)](LICENSE)
 [![Node 22+](https://img.shields.io/badge/node-22%2B-22c55e)](https://nodejs.org)
 [![Claude Fable 5](https://img.shields.io/badge/AI-Claude%20Fable%205-15803d)](https://anthropic.com)
-[![Mobile PWA](https://img.shields.io/badge/mobile-PWA-16a34a)](#mobile-pwa)
-[![GitHub Stars](https://img.shields.io/github/stars/vignesh2027/Vilvona-AI?style=social)](https://github.com/vignesh2027/Vilvona-AI)
+[![Stars](https://img.shields.io/github/stars/vignesh2027/Vilvona-AI?style=social)](https://github.com/vignesh2027/Vilvona-AI)
 
-Powered by **Claude Fable 5** — Anthropic's most capable model.  
-Supports **Tamil**, **Hindi**, and 21 languages. Works on **desktop, mobile, and tablet**.  
-100% **BYOK** — bring your own API key. Your data never leaves your machine.
+**Self-hosted AI assistant that connects all your apps.**  
+Powered by Claude Fable 5. Tamil & Hindi UI. Works on mobile. Run anywhere.
 
-**[Docs](https://vignesh2027.github.io/Vilvona-AI)** &nbsp;·&nbsp;
-**[npm](https://npmjs.com/package/vilvona)** &nbsp;·&nbsp;
-**[Pro License](https://vignesh2027.mojo.page/vilvona-ai-pro)** &nbsp;·&nbsp;
-**[Issues](https://github.com/vignesh2027/Vilvona-AI/issues)**
+[**Get Pro License — ₹4,100**](https://vignesh2027.mojo.page/vilvona-ai-pro) &nbsp;·&nbsp; [Docs](https://vignesh2027.github.io/Vilvona-AI) &nbsp;·&nbsp; [npm](https://npmjs.com/package/vilvona)
 
 </div>
 
 ---
 
-## Quick Start
+## What is this?
+
+I built Vilvona AI because I wanted a personal AI assistant that could connect to WhatsApp, Telegram, Gmail, Slack, and everything else I use — without sending my data to some cloud service.
+
+It runs entirely on your own machine. You bring your Anthropic API key, and Vilvona handles the rest. Your conversations stay local. You pay Anthropic directly per token — no markup, no middleman.
+
+The two things that make it different from everything else I found:
+
+- **Tamil and Hindi** — I'm from Chennai. I wanted an AI assistant that actually works in Tamil, not just pretends to. Vilvona has a full Tamil and Hindi interface built in.
+- **Claude Fable 5 by default** — Anthropic's most capable model, set as the default. 1 million token context. Computer use. The best reasoning available right now.
+
+---
+
+## Start in 30 seconds
 
 ```bash
-# npm (no install needed)
+export ANTHROPIC_API_KEY=sk-ant-...
+npx vilvona
+```
+
+Open **http://localhost:4000**. Done.
+
+Get an API key at [console.anthropic.com](https://console.anthropic.com) — it's free to sign up, you only pay for what you use.
+
+---
+
+## Install
+
+```bash
+# npx — no install, always latest
 npx vilvona
 
 # yarn
@@ -38,241 +57,119 @@ yarn dlx vilvona
 # pnpm
 pnpm dlx vilvona
 
-# global install
+# global
 npm install -g vilvona
-vilvona
 ```
 
-Set your API key and start:
-
-```bash
-export ANTHROPIC_API_KEY=sk-ant-...
-npx vilvona
-```
-
-Open **http://localhost:4000** in your browser.
-
-> **Mobile:** Open `http://your-machine-ip:4000` on your phone and tap "Add to Home Screen" to install as a PWA.
-
----
-
-## What is Vilvona AI?
-
-Vilvona AI is a self-hosted personal AI assistant that connects to all your apps — WhatsApp, Telegram, Slack, Gmail, Discord, Notion, GitHub, and 100+ more — from one clean interface.
-
-Built on [OpenClaw](https://github.com/openclaw/openclaw) (MIT), with three key additions:
-
-| Addition             | Description                                                                              |
-| -------------------- | ---------------------------------------------------------------------------------------- |
-| **Claude Fable 5**   | Anthropic's most capable model as the default — 1M context, computer use, best reasoning |
-| **Tamil & Hindi UI** | First AI assistant with native support for India's two major languages                   |
-| **Mobile PWA**       | Install on your phone from the browser — no app store needed                             |
-
----
-
-## Features
-
-### AI Models
-
-Vilvona AI uses Claude Fable 5 by default — the most capable model from Anthropic.
-
-```bash
-# Set via environment variable
-export VILVONA_DEFAULT_MODEL=fable    # Claude Fable 5 (default, most capable)
-export VILVONA_DEFAULT_MODEL=opus     # Claude Opus 4.8 (balanced)
-export VILVONA_DEFAULT_MODEL=sonnet   # Claude Sonnet 4.6 (fast, affordable)
-```
-
-Or in your config file (`~/.openclaw/config.json`):
-
-```json
-{
-  "defaults": {
-    "model": "anthropic/claude-fable-5"
-  }
-}
-```
-
-### Connected Apps
-
-| Category         | Apps                                                |
-| ---------------- | --------------------------------------------------- |
-| **Messaging**    | WhatsApp, Telegram, iMessage (Mac), Signal, Discord |
-| **Work**         | Slack, Gmail, Notion, GitHub, Linear, Jira          |
-| **Social**       | Instagram DM, Twitter/X                             |
-| **Productivity** | Google Calendar, Google Drive, Dropbox              |
-| **Developer**    | GitHub, GitLab, webhooks, custom MCP servers        |
-
-### Languages
-
-Vilvona AI is the first AI assistant with native Tamil and Hindi UI:
-
-| Language  | Script   | Code    | Status    |
-| --------- | -------- | ------- | --------- |
-| **Tamil** | தமிழ்    | `ta`    | Full UI   |
-| **Hindi** | हिन्दी   | `hi`    | Full UI   |
-| English   | English  | `en`    | Default   |
-| Chinese   | 中文     | `zh-CN` | Supported |
-| Japanese  | 日本語   | `ja-JP` | Supported |
-| Korean    | 한국어   | `ko`    | Supported |
-| Arabic    | العربية  | `ar`    | Supported |
-| French    | Français | `fr`    | Supported |
-| German    | Deutsch  | `de`    | Supported |
-| Spanish   | Español  | `es`    | Supported |
-| + 11 more | —        | —       | Supported |
-
----
-
-## Installation
-
-### npx — recommended, no install
-
-```bash
-npx vilvona
-```
-
-### yarn
-
-```bash
-# Run without installing
-yarn dlx vilvona
-
-# Install globally
-yarn global add vilvona
-vilvona
-```
-
-> Requires Corepack: `corepack enable`
-
-### pnpm
-
-```bash
-# Run without installing
-pnpm dlx vilvona
-
-# Install globally
-pnpm add -g vilvona
-vilvona
-```
-
-> If `pnpm dlx` fails on a brand-new release, use `npx vilvona` or run:
-> `pnpm config set minimumReleaseAge 0`
-
-### npm global
-
-```bash
-npm install -g vilvona
-vilvona
-```
-
-### Docker
-
-```bash
-# Quick start
-docker run \
-  -e ANTHROPIC_API_KEY=sk-ant-... \
-  -p 4000:4000 \
-  ghcr.io/vignesh2027/vilvona-ai
-
-# With Pro key
-docker run \
-  -e ANTHROPIC_API_KEY=sk-ant-... \
-  -e VILVONA_PRO_KEY=VLVN-XXXX-XXXX-XXXX-XXXX \
-  -p 4000:4000 \
-  ghcr.io/vignesh2027/vilvona-ai
-
-# With persistent data
-docker run \
-  -e ANTHROPIC_API_KEY=sk-ant-... \
-  -v ~/.vilvona:/root/.openclaw \
-  -p 4000:4000 \
-  ghcr.io/vignesh2027/vilvona-ai
-```
-
-### Windows (PowerShell)
+**Windows (PowerShell):**
 
 ```powershell
 $env:ANTHROPIC_API_KEY = "sk-ant-..."
 npx vilvona
 ```
 
-### Build from source
+**Docker:**
 
 ```bash
-git clone https://github.com/vignesh2027/Vilvona-AI.git
-cd Vilvona-AI
-node --version  # Must be 22+
-node openclaw.mjs
+docker run -e ANTHROPIC_API_KEY=sk-ant-... -p 4000:4000 ghcr.io/vignesh2027/vilvona-ai
 ```
 
-> Requires Node.js 22.19+. Use nvm: `nvm install 22 && nvm use 22`
+> Requires Node.js 22+. If you have nvm: `nvm install 22 && nvm use 22`
 
 ---
 
-## Mobile PWA
+## What it connects to
 
-Vilvona AI works as a full mobile app — no App Store, no Play Store.
+| Category  | Apps                                                |
+| --------- | --------------------------------------------------- |
+| Messaging | WhatsApp, Telegram, iMessage (Mac), Signal, Discord |
+| Work      | Slack, Gmail, Notion, GitHub, Linear, Jira          |
+| Social    | Instagram DM, Twitter/X                             |
+| Files     | Google Drive, Dropbox, OneDrive                     |
+| Dev       | GitLab, webhooks, custom MCP servers                |
 
-**iPhone (Safari):**
+100+ integrations inherited from [OpenClaw](https://github.com/openclaw/openclaw). You connect them from the Settings panel in the UI.
 
-1. Open `http://your-machine-ip:4000` in Safari
-2. Tap the share icon → **Add to Home Screen**
-3. Vilvona AI is now on your home screen
+---
 
-**Android (Chrome):**
+## Languages
 
-1. Open `http://your-machine-ip:4000` in Chrome
-2. Tap the three-dot menu → **Install app**
-3. Done
+The interface supports 21 languages. Tamil and Hindi are built in by Vilvona — no other AI assistant I found actually has these as first-class options.
+
+| Language  | Script  | Code    |
+| --------- | ------- | ------- |
+| **Tamil** | தமிழ்   | `ta`    |
+| **Hindi** | हिन्दी  | `hi`    |
+| English   | English | `en`    |
+| Chinese   | 中文    | `zh-CN` |
+| Japanese  | 日本語  | `ja-JP` |
+| Korean    | 한국어  | `ko`    |
+| Arabic    | العربية | `ar`    |
+| + 14 more | —       | —       |
+
+Set the language in your config:
+
+```json
+{ "ui": { "locale": "ta" } }
+```
+
+---
+
+## AI Models
+
+```bash
+export VILVONA_DEFAULT_MODEL=fable    # Claude Fable 5 — default, best reasoning
+export VILVONA_DEFAULT_MODEL=opus     # Claude Opus 4.8 — balanced
+export VILVONA_DEFAULT_MODEL=sonnet   # Claude Sonnet 4.6 — fast
+```
+
+Or set it in `~/.openclaw/config.json`:
+
+```json
+{ "defaults": { "model": "anthropic/claude-fable-5" } }
+```
+
+---
+
+## Mobile
+
+Vilvona works as a mobile app without any app store. On your phone, open `http://your-ip:4000` and tap "Add to Home Screen." It installs like a native app on both iOS and Android.
 
 ---
 
 ## Configuration
 
-Config file location: `~/.openclaw/config.json`
+| Variable                | What it does                             | Default |
+| ----------------------- | ---------------------------------------- | ------- |
+| `ANTHROPIC_API_KEY`     | Your Anthropic key — required            | —       |
+| `VILVONA_DEFAULT_MODEL` | `fable`, `opus`, or `sonnet`             | `fable` |
+| `VILVONA_PRO_KEY`       | Pro license (`VLVN-XXXX-XXXX-XXXX-XXXX`) | —       |
+| `OPENCLAW_PORT`         | Port for the web UI                      | `4000`  |
 
-```json
-{
-  "defaults": {
-    "model": "anthropic/claude-fable-5"
-  },
-  "ui": {
-    "locale": "ta"
-  }
-}
-```
-
-### Environment variables
-
-| Variable                | Description                                  | Default |
-| ----------------------- | -------------------------------------------- | ------- |
-| `ANTHROPIC_API_KEY`     | Your Anthropic API key (required)            | —       |
-| `VILVONA_DEFAULT_MODEL` | Model alias: `fable`, `opus`, `sonnet`       | `fable` |
-| `VILVONA_PRO_KEY`       | Pro license key (`VLVN-XXXX-XXXX-XXXX-XXXX`) | —       |
-| `OPENCLAW_PORT`         | Port to listen on                            | `4000`  |
+Config file: `~/.openclaw/config.json`
 
 ---
 
-## Pro Tier
+## Pro
 
-Vilvona AI Pro unlocks enterprise and team features.
+The free version has everything for personal use. Pro adds features for teams and businesses.
 
-| Feature                        | Free | Pro |
-| ------------------------------ | ---- | --- |
-| Claude Fable 5                 | Yes  | Yes |
-| All 100+ integrations          | Yes  | Yes |
-| Tamil & Hindi UI               | Yes  | Yes |
-| Mobile PWA                     | Yes  | Yes |
-| Enterprise audit logs          | —    | Yes |
-| Team config sync               | —    | Yes |
-| Priority Fable 5 routing       | —    | Yes |
-| Custom AI personas (unlimited) | —    | Yes |
-| Webhook & Zapier integrations  | —    | Yes |
-| White-label branding           | —    | Yes |
+| Feature                  | Free | Pro |
+| ------------------------ | ---- | --- |
+| Claude Fable 5           | Yes  | Yes |
+| All integrations         | Yes  | Yes |
+| Tamil & Hindi UI         | Yes  | Yes |
+| Mobile PWA               | Yes  | Yes |
+| Enterprise audit logs    | —    | Yes |
+| Team config sync         | —    | Yes |
+| Priority Fable 5 routing | —    | Yes |
+| Custom AI personas       | —    | Yes |
+| Webhooks & Zapier        | —    | Yes |
+| White-label branding     | —    | Yes |
 
-**One-time payment — ₹4,100 (~$49):** [vignesh2027.mojo.page/vilvona-ai-pro](https://vignesh2027.mojo.page/vilvona-ai-pro)
+**[Get Pro — ₹4,100 one-time (~$49)](https://vignesh2027.mojo.page/vilvona-ai-pro)**
 
-After purchase, activate your key:
+After purchase, activate with:
 
 ```bash
 export VILVONA_PRO_KEY=VLVN-XXXX-XXXX-XXXX-XXXX
@@ -281,94 +178,48 @@ vilvona
 
 ---
 
-## How it works
+## How it works under the hood
 
 ```
 npx vilvona
-    └── openclaw.mjs (Vilvona launcher)
-            ├── Checks Node.js 22+ (shows clear error if older)
-            ├── Prints Vilvona banner
-            ├── Downloads openclaw runtime → ~/.vilvona/runtime/ (first run only, ~97MB)
-            ├── Sets OPENCLAW_DEFAULT_MODEL=anthropic/claude-fable-5
-            └── Launches openclaw runtime (opens UI at localhost:4000)
+  └── openclaw.mjs checks Node.js 22+
+      └── downloads openclaw runtime → ~/.vilvona/runtime/ (first run, ~97MB)
+          └── sets OPENCLAW_DEFAULT_MODEL=anthropic/claude-fable-5
+              └── starts web UI at localhost:4000
 ```
 
-The first run downloads the OpenClaw runtime (~97MB) to `~/.vilvona/runtime/`. Subsequent runs start instantly from cache.
+The first run downloads OpenClaw's runtime bundle once. After that, everything starts in under a second from cache.
 
 ---
 
-## Why Vilvona AI vs OpenClaw?
+## Releases
 
-|                   | Vilvona AI                                     | OpenClaw      |
-| ----------------- | ---------------------------------------------- | ------------- |
-| Default AI model  | Claude Fable 5 (latest)                        | Varies        |
-| Tamil language UI | Built-in                                       | Not supported |
-| Hindi language UI | Built-in                                       | Not supported |
-| Mobile PWA        | Enhanced manifest                              | Basic         |
-| Pro tier          | Enterprise features                            | None          |
-| npm package       | `npx vilvona`                                  | Source only   |
-| Maintained by     | [@vignesh2027](https://github.com/vignesh2027) | OpenClaw team |
-
----
-
-## npm + GitHub Actions Auto-Release
-
-When you push a version tag, GitHub Actions automatically publishes to npm:
+Releases are automatic. Pushing a `v*` tag runs the CI checks and publishes to npm + creates a GitHub release.
 
 ```bash
-# Update version, commit, push tag — npm publishes automatically
-npm version patch         # bumps to next version
+# bump version and release
+npm version patch
 git push origin main --follow-tags
 ```
-
-The `release.yml` workflow:
-
-1. Runs on any `v*` tag push
-2. Validates package.json and launcher
-3. Publishes to npm with `--access public`
-4. Creates a GitHub Release with install instructions
-
----
-
-## Contributing
-
-Vilvona AI is built and maintained by **Vignesh S**. Found a bug or have a feature request? [Open an issue](https://github.com/vignesh2027/Vilvona-AI/issues).
-
----
-
-## Support & Sponsorship
-
-If Vilvona AI saves you time, consider supporting:
-
-[![Sponsor on GitHub](https://img.shields.io/badge/Sponsor%20on-GitHub-ea4aaa?logo=github)](https://github.com/sponsors/vignesh2027)
-[![Get Pro License](https://img.shields.io/badge/Get-Pro%20License-15803d)](https://vignesh2027.mojo.page/vilvona-ai-pro)
-
----
-
-## Changelog
-
-See [CHANGELOG.md](CHANGELOG.md) for version history.
 
 ---
 
 ## License
 
-[MIT](LICENSE) — free to use, modify, and redistribute.
-
-Built on [OpenClaw](https://github.com/openclaw/openclaw) (MIT). Attribution in [UPSTREAM.md](UPSTREAM.md).
+MIT. Built on [OpenClaw](https://github.com/openclaw/openclaw) (also MIT). Attribution in [UPSTREAM.md](UPSTREAM.md).
 
 ---
 
 <div align="center">
 
-**If Vilvona AI helped you, please star this repo**
+Built by **[Vignesh S](https://github.com/vignesh2027)**  
+CSE, Takshashila University, Chennai
 
 [Docs](https://vignesh2027.github.io/Vilvona-AI) &nbsp;·&nbsp;
-[Report a Bug](https://github.com/vignesh2027/Vilvona-AI/issues) &nbsp;·&nbsp;
+[Issues](https://github.com/vignesh2027/Vilvona-AI/issues) &nbsp;·&nbsp;
 [Get Pro](https://vignesh2027.mojo.page/vilvona-ai-pro) &nbsp;·&nbsp;
 [Sponsor](https://github.com/sponsors/vignesh2027)
 
-Built by **Vignesh S** — CSE student at Takshashila University, Chennai.  
-Building AI tools accessible to everyone, especially in Tamil and Hindi.
+If this saved you time, a star helps others find it.
 
 </div>
