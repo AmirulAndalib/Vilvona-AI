@@ -202,7 +202,7 @@ Vilvona AI Pro unlocks enterprise and team features.
 | Webhook & Zapier integrations  | —    | ✅  |
 | White-label branding           | —    | ✅  |
 
-**Get Pro — $49 one-time:** [vilvona.gumroad.com/l/pro](https://vilvona.gumroad.com/l/jhurz)
+**Get Pro — ₹4,100 one-time (~$49):** [vignesh2027.mojo.page/vilvona-ai-pro](https://vignesh2027.mojo.page/vilvona-ai-pro)
 
 ```bash
 export VILVONA_PRO_KEY=VLVN-XXXX-XXXX-XXXX-XXXX
@@ -278,7 +278,7 @@ Vilvona AI stores its config at `~/.openclaw/config.json`:
 Vilvona AI is free and open source. If it saves you time, consider sponsoring:
 
 [![GitHub Sponsors](https://img.shields.io/badge/Sponsor%20on-GitHub-ea4aaa?logo=github)](https://github.com/sponsors/vignesh2027)
-[![Gumroad Pro](https://img.shields.io/badge/Get-Pro%20License-orange)](https://vilvona.gumroad.com/l/jhurz)
+[![Get Pro](https://img.shields.io/badge/Get-Pro%20License-orange)](https://vignesh2027.mojo.page/vilvona-ai-pro)
 
 ---
 
@@ -309,6 +309,6 @@ Building tools that make AI accessible for everyone — especially in Tamil and 
 
 **If Vilvona AI helped you, please ⭐ star this repo**
 
-[Report Bug](https://github.com/vignesh2027/Vilvona-AI/issues) · [Request Feature](https://github.com/vignesh2027/Vilvona-AI/issues) · [Get Pro](https://vilvona.gumroad.com/l/jhurz) · [Sponsor](https://github.com/sponsors/vignesh2027)
+[Report Bug](https://github.com/vignesh2027/Vilvona-AI/issues) · [Request Feature](https://github.com/vignesh2027/Vilvona-AI/issues) · [Get Pro](https://vignesh2027.mojo.page/vilvona-ai-pro) · [Sponsor](https://github.com/sponsors/vignesh2027)
 
 </div>

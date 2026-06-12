@@ -1,0 +1,34 @@
+# Source files — not needed for npx vilvona
+src/
+ui/
+test/
+tests/
+docs/
+apps/
+packages/
+extensions/
+scripts/
+patches/
+skills/
+node_modules/
+.github/
+.vscode/
+
+# Config files
+*.config.ts
+*.config.js
+tsconfig*.json
+pnpm-workspace.yaml
+pnpm-lock.yaml
+.eslintrc*
+.prettierrc*
+vitest*
+
+# Build artifacts that don't exist locally
+dist/
+
+# Dev files
+*.test.ts
+*.spec.ts
+CLAUDE.md
+AGENTS.md

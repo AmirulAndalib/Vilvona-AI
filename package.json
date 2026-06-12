@@ -16,6 +16,7 @@
   "bin": {
     "vilvona": "openclaw.mjs"
   },
+  "main": "openclaw.mjs",
   "directories": {
     "doc": "docs",
     "test": "test"
