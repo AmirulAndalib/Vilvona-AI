@@ -14,7 +14,7 @@
 **Self-hosted AI assistant that connects all your apps.**  
 Powered by Claude Fable 5. Tamil & Hindi UI. Works on mobile. Run anywhere.
 
-[**Get Pro License — ₹4,100**](https://vignesh2027.mojo.page/vilvona-ai-pro) &nbsp;·&nbsp; [Docs](https://vignesh2027.github.io/Vilvona-AI) &nbsp;·&nbsp; [npm](https://npmjs.com/package/vilvona)
+[**Get Vilvona Pro**](https://vignesh2027.mojo.page/vilvona-ai-pro) &nbsp;·&nbsp; [Docs](https://vignesh2027.github.io/Vilvona-AI) &nbsp;·&nbsp; [npm](https://npmjs.com/package/vilvona)
 
 </div>
 
@@ -168,7 +168,7 @@ The free version has everything for personal use. Pro adds features for teams an
 | Webhooks & Zapier        | —    | Yes |
 | White-label branding     | —    | Yes |
 
-**[Get Pro — ₹4,100 one-time (~$49)](https://vignesh2027.mojo.page/vilvona-ai-pro)**
+**[Get Vilvona Pro — one-time purchase, lifetime access](https://vignesh2027.mojo.page/vilvona-ai-pro)**
 
 After purchase, activate with:
 
