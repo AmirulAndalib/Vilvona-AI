@@ -8,6 +8,7 @@
 [![MIT](https://img.shields.io/badge/license-MIT-22c55e)](LICENSE)
 [![Node 22+](https://img.shields.io/badge/node-22%2B-22c55e)](https://nodejs.org)
 [![Claude Fable 5](https://img.shields.io/badge/AI-Claude%20Fable%205-15803d)](https://anthropic.com)
+[![Known Vulnerabilities](https://snyk.io/test/github/vignesh2027/Vilvona-AI/badge.svg)](https://snyk.io/test/github/vignesh2027/Vilvona-AI)
 [![Stars](https://img.shields.io/github/stars/vignesh2027/Vilvona-AI?style=social)](https://github.com/vignesh2027/Vilvona-AI)
 
 **Self-hosted AI assistant that connects all your apps.**  

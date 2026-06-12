@@ -27,13 +27,16 @@ jobs:
           node - <<'SCRIPT'
           const pkg = require('./package.json');
           const checks = {
-            'name is vilvona': pkg.name === 'vilvona',
-            'bin.vilvona set': !!pkg.bin?.vilvona,
-            'engines.node set': !!pkg.engines?.node,
-            'license MIT': pkg.license === 'MIT',
-            'author set': !!pkg.author,
-            'repo URL correct': pkg.repository?.url?.includes('Vilvona-AI'),
-            'homepage correct': (pkg.homepage || '').includes('Vilvona-AI'),
+            'name is vilvona':        pkg.name === 'vilvona',
+            'bin.vilvona set':        !!pkg.bin?.vilvona,
+            'engines.node set':       !!pkg.engines?.node,
+            'license MIT':            pkg.license === 'MIT',
+            'author set':             !!pkg.author,
+            'repo URL correct':       pkg.repository?.url?.includes('Vilvona-AI'),
+            'homepage correct':       (pkg.homepage || '').includes('Vilvona-AI'),
+            'description set':        !!pkg.description,
+            'keywords set':           (pkg.keywords || []).length > 0,
+            'not private':            !pkg.private,
           };
           let pass = true;
           for (const [k, v] of Object.entries(checks)) {
@@ -46,10 +49,18 @@ jobs:
       - name: Validate launcher
         run: |
           node --check openclaw.mjs && echo "PASS: openclaw.mjs syntax ok"
-          grep -q "vilvona" openclaw.mjs && echo "PASS: openclaw.mjs rebranded"
-          grep -q "MIN_MAJOR" openclaw.mjs && echo "PASS: Node version check present"
-          grep -q "win32" openclaw.mjs && echo "PASS: Windows signal handling present"
-          grep -q "VILVONA" openclaw.mjs && echo "PASS: VILVONA env vars present"
+          grep -q "vilvona" openclaw.mjs       && echo "PASS: openclaw.mjs rebranded"
+          grep -q "MIN_MAJOR" openclaw.mjs     && echo "PASS: Node version check present"
+          grep -q "win32" openclaw.mjs         && echo "PASS: Windows signal handling present"
+          grep -q "VILVONA" openclaw.mjs       && echo "PASS: VILVONA env vars present"
+          grep -q "createRequire" openclaw.mjs && echo "PASS: dynamic version read (createRequire)"
+
+      - name: Validate version consistency
+        run: |
+          PKG_VERSION=$(node -p "require('./package.json').version")
+          grep -q "return \"$PKG_VERSION\"" openclaw.mjs \
+            && echo "PASS: fallback version $PKG_VERSION matches package.json" \
+            || (echo "FAIL: openclaw.mjs fallback != $PKG_VERSION" && exit 1)
 
       - name: Validate PWA manifest
         run: |
@@ -67,37 +78,62 @@ jobs:
           test -f ui/src/i18n/locales/hi.ts && echo "PASS: hi.ts exists"
           grep -q '"ta"' ui/src/i18n/lib/registry.ts && echo "PASS: Tamil in registry"
           grep -q '"hi"' ui/src/i18n/lib/registry.ts && echo "PASS: Hindi in registry"
-          grep -q '"ta"' ui/src/i18n/lib/types.ts && echo "PASS: Tamil in types"
-          grep -q '"hi"' ui/src/i18n/lib/types.ts && echo "PASS: Hindi in types"
+          grep -q '"ta"' ui/src/i18n/lib/types.ts    && echo "PASS: Tamil in types"
+          grep -q '"hi"' ui/src/i18n/lib/types.ts    && echo "PASS: Hindi in types"
 
       - name: Validate Fable 5 config
         run: |
-          grep -q "claude-fable-5" src/config/defaults.ts && echo "PASS: Fable 5 in defaults"
+          grep -q "claude-fable-5" src/config/defaults.ts         && echo "PASS: Fable 5 in defaults"
           grep -q "claude-fable-5" src/agents/live-model-filter.ts && echo "PASS: Fable 5 in live-filter"
-          grep -q "fable:" src/config/defaults.ts && echo "PASS: fable alias set"
+          grep -q "fable:" src/config/defaults.ts                   && echo "PASS: fable alias set"
 
       - name: Validate Pro module
         run: |
-          test -f src/pro/license.ts && echo "PASS: license.ts exists"
+          test -f src/pro/license.ts     && echo "PASS: license.ts exists"
           test -f src/pro/pro-features.ts && echo "PASS: pro-features.ts exists"
-          grep -q "VLVN-" src/pro/license.ts && echo "PASS: VLVN key format present"
+          grep -q "VLVN-" src/pro/license.ts           && echo "PASS: VLVN key format present"
           grep -q "VILVONA_PRO_KEY" src/pro/license.ts && echo "PASS: env var name correct"
+          grep -q "mojo.page" src/pro/license.ts       && echo "PASS: Pro URL is mojo.page"
+
+      - name: Validate Vilvona identity module
+        run: |
+          test -f src/vilvona/index.ts                           && echo "PASS: src/vilvona/index.ts exists"
+          grep -q "VILVONA_NAME" src/vilvona/index.ts            && echo "PASS: VILVONA_NAME exported"
+          grep -q "mojo.page" src/vilvona/index.ts               && echo "PASS: Pro URL in identity module"
+          grep -q "claude-fable-5" src/vilvona/index.ts          && echo "PASS: Fable 5 in identity module"
 
       - name: Validate FUNDING and docs
         run: |
-          grep -q "vignesh2027" .github/FUNDING.yml && echo "PASS: FUNDING.yml has sponsor"
-          grep -q "mojo.page" .github/FUNDING.yml && echo "PASS: Instamojo link in FUNDING"
-          test -f docs/index.html && echo "PASS: GitHub Pages index.html exists"
-          test -f docs/.nojekyll && echo "PASS: .nojekyll present"
-          grep -q "Vilvona AI" docs/index.html && echo "PASS: docs branded correctly"
+          grep -q "vignesh2027" .github/FUNDING.yml  && echo "PASS: FUNDING.yml has sponsor"
+          grep -q "mojo.page" .github/FUNDING.yml    && echo "PASS: Instamojo link in FUNDING"
+          test -f docs/index.html                    && echo "PASS: GitHub Pages index.html exists"
+          test -f docs/.nojekyll                     && echo "PASS: .nojekyll present"
+          grep -q "Vilvona AI" docs/index.html       && echo "PASS: docs branded correctly"
+          grep -q "mojo.page" docs/index.html        && echo "PASS: docs has Pro payment link"
 
       - name: Validate install methods documented
         run: |
-          grep -q "yarn dlx vilvona" README.md && echo "PASS: yarn in README"
-          grep -q "pnpm dlx vilvona" README.md && echo "PASS: pnpm in README"
-          grep -q "npx vilvona" README.md && echo "PASS: npx in README"
-          grep -q "yarn dlx" docs/index.html && echo "PASS: yarn in docs"
-          grep -q "pnpm dlx" docs/index.html && echo "PASS: pnpm in docs"
+          grep -q "yarn dlx vilvona" README.md   && echo "PASS: yarn in README"
+          grep -q "pnpm dlx vilvona" README.md   && echo "PASS: pnpm in README"
+          grep -q "npx vilvona" README.md        && echo "PASS: npx in README"
+          grep -q "yarn dlx" docs/index.html     && echo "PASS: yarn in docs"
+          grep -q "pnpm dlx" docs/index.html     && echo "PASS: pnpm in docs"
+
+      - name: Validate Snyk integration
+        run: |
+          test -f .snyk                                            && echo "PASS: .snyk policy file exists"
+          test -f .github/workflows/snyk.yml                      && echo "PASS: snyk.yml workflow exists"
+          grep -q "snyk.io" README.md                             && echo "PASS: Snyk badge in README"
+
+      - name: Validate security files
+        run: |
+          test -f SECURITY.md                                      && echo "PASS: SECURITY.md exists"
+          grep -q "lkvarnesh@gmail.com" SECURITY.md               && echo "PASS: security contact set"
+
+      - name: Validate examples
+        run: |
+          test -f examples/basic/package.json                      && echo "PASS: examples/basic exists"
+          grep -q "vilvona" examples/basic/package.json            && echo "PASS: examples depend on vilvona"
 
       - name: Security audit
         run: npm audit --audit-level=high || echo "Audit complete"
@@ -105,7 +141,7 @@ jobs:
       - name: All checks passed
         run: |
           echo "All Vilvona AI module checks passed"
-          echo "npm: npx vilvona"
+          echo "npm:  npx vilvona"
           echo "yarn: yarn dlx vilvona"
           echo "pnpm: pnpm dlx vilvona"
 

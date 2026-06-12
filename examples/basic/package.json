@@ -1,0 +1,15 @@
+{
+  "name": "vilvona-basic-example",
+  "version": "1.0.0",
+  "description": "Basic example showing how to use Vilvona AI",
+  "private": true,
+  "scripts": {
+    "start": "npx vilvona"
+  },
+  "dependencies": {
+    "vilvona": "latest"
+  },
+  "engines": {
+    "node": ">=22.19.0"
+  }
+}

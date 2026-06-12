@@ -1,0 +1,9 @@
+# Snyk (https://snyk.io) policy file
+version: v1.25.0
+
+# Vilvona AI — security policy
+# Snyk ignores are managed here; add entries only with justification.
+
+ignore: {}
+
+patch: {}

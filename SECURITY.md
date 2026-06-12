@@ -1,5 +1,13 @@
 # Security Policy
 
+## Vilvona AI
+
+To report a security vulnerability in Vilvona AI specifically (the launcher, npm package, or docs), email **lkvarnesh@gmail.com** directly. You will receive a response within 48 hours.
+
+For OpenClaw runtime issues (the engine downloaded to `~/.vilvona/runtime/`), report to the OpenClaw project per the section below.
+
+---
+
 If you believe you've found a security issue in OpenClaw, report it privately first.
 
 This policy does two things: it gives researchers a clear disclosure path, and it spells out the trust model maintainers use when triaging reports. OpenClaw is local-first agent infrastructure for trusted operators; it is not designed as a shared multi-tenant boundary between adversarial users on one gateway.
