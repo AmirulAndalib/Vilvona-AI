@@ -169,6 +169,31 @@
       transition: border-color 0.2s;
     }
     .btn-outline:hover { border-color: var(--green-mid); }
+    .btn-pro-hero {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, #92400e 0%, #b45309 50%, #d97706 100%);
+      color: #fff;
+      padding: 11px 26px; border-radius: 9px;
+      text-decoration: none; font-weight: 700; font-size: 0.92rem;
+      box-shadow: 0 2px 12px rgba(180,83,9,0.28);
+      transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+      letter-spacing: 0.01em;
+    }
+    .btn-pro-hero:hover { opacity: 0.92; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(180,83,9,0.36); }
+
+    /* ── PRO HERO STRIP ── */
+    .pro-hero-strip {
+      display: flex; align-items: center; justify-content: center;
+      gap: 20px; flex-wrap: wrap;
+      margin-top: 24px;
+      padding: 18px 24px;
+      background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+      border: 1.5px solid #fcd34d;
+      border-radius: 12px;
+    }
+    .pro-hero-strip-text { text-align: left; }
+    .pro-hero-strip-text strong { font-size: 0.95rem; color: #92400e; display: block; margin-bottom: 2px; }
+    .pro-hero-strip-text span { font-size: 0.82rem; color: #b45309; }
 
     /* ── BADGES ── */
     .badge-row {
@@ -353,7 +378,7 @@
       <img src="logo.png" alt="Vilvona AI" />
       <span>Vilvona AI</span>
     </a>
-    <span class="topnav-version">v1.0.5</span>
+    <span class="topnav-version">v1.0.7</span>
   </div>
   <div class="topnav-right">
     <a href="#quickstart" class="hide-mobile">Quickstart</a>
@@ -419,7 +444,7 @@
     <h1>Vilvona <span>AI</span></h1>
     <p>Your personal AI that connects everything. Self-hosted, BYOK, mobile-ready.</p>
     <div class="badge-row">
-      <img src="https://img.shields.io/npm/v/vilvona?label=npm&color=22c55e" alt="npm" />
+      <img src="https://img.shields.io/npm/v/vilvona?label=npm&color=22c55e&cacheSeconds=300" alt="npm version" />
       <img src="https://img.shields.io/badge/license-MIT-22c55e.svg" alt="MIT" />
       <img src="https://img.shields.io/badge/node-22%2B-22c55e" alt="Node 22+" />
       <img src="https://img.shields.io/badge/AI-Claude%20Fable%205-15803d" alt="Fable 5" />
@@ -432,6 +457,18 @@
     <div class="hero-actions">
       <a href="#quickstart" class="btn-primary">Get Started</a>
       <a href="https://github.com/vignesh2027/Vilvona-AI" class="btn-outline" target="_blank">GitHub &rarr;</a>
+    </div>
+
+    <!-- PRO CTA STRIP -->
+    <div class="pro-hero-strip">
+      <div class="pro-hero-strip-text">
+        <strong>Vilvona AI Pro &mdash; &#8377;4,100 one-time (~$49)</strong>
+        <span>Audit logs &middot; Team sync &middot; Priority Fable 5 &middot; Webhooks &middot; White-label &middot; Lifetime access</span>
+      </div>
+      <a href="https://vignesh2027.mojo.page/vilvona-ai-pro" class="btn-pro-hero" target="_blank">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        Get Pro &mdash; &#8377;4,100
+      </a>
     </div>
   </div>
 
