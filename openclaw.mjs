@@ -68,6 +68,20 @@ if (!existsSync(ENTRY)) {
   process.stderr.write(`\nSetup complete. Starting Vilvona AI...\n\n`);
 }
 
+// ── Vilvona AI banner ─────────────────────────────────────────────────────────
+process.stdout.write(
+  "\n\x1b[35m" +
+    "██╗   ██╗██╗██╗     ██╗   ██╗ ██████╗ ███╗   ██╗ █████╗     █████╗ ██╗\n" +
+    "██║   ██║██║██║     ██║   ██║██╔═══██╗████╗  ██║██╔══██╗   ██╔══██╗██║\n" +
+    "██║   ██║██║██║     ██║   ██║██║   ██║██╔██╗ ██║███████║   ███████║██║\n" +
+    "╚██╗ ██╔╝██║██║     ╚██╗ ██╔╝██║   ██║██║╚██╗██║██╔══██║   ██╔══██║██║\n" +
+    " ╚████╔╝ ██║███████╗ ╚████╔╝ ╚██████╔╝██║ ╚████║██║  ██║   ██║  ██║██║\n" +
+    "  ╚═══╝  ╚═╝╚══════╝  ╚═══╝   ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═╝   ╚═╝  ╚═╝╚═╝\n" +
+    "\x1b[0m" +
+    "\x1b[36m  Powered by Claude Fable 5  •  Tamil & Hindi  •  Mobile PWA\x1b[0m\n" +
+    "\x1b[90m  github.com/vignesh2027/Vilvona-AI  •  by Vignesh S\x1b[0m\n\n",
+);
+
 // ── Set Vilvona defaults ──────────────────────────────────────────────────────
 process.env.OPENCLAW_DEFAULT_MODEL =
   process.env.VILVONA_DEFAULT_MODEL ??
@@ -84,9 +98,29 @@ const child = spawn(process.execPath, [ENTRY, ...process.argv.slice(2)], {
   env: process.env,
 });
 
+// Forward signals to child — Windows needs SIGTERM/SIGINT/SIGBREAK
+const signals =
+  process.platform === "win32"
+    ? ["SIGTERM", "SIGINT", "SIGBREAK"]
+    : ["SIGTERM", "SIGINT", "SIGHUP", "SIGQUIT"];
+
+for (const sig of signals) {
+  try {
+    process.on(sig, () => {
+      try {
+        child.kill(sig);
+      } catch {}
+    });
+  } catch {}
+}
+
 child.on("exit", (code, signal) => {
   if (signal) {
-    process.kill(process.pid, signal);
+    try {
+      process.kill(process.pid, signal);
+    } catch {
+      process.exit(1);
+    }
   } else {
     process.exit(code ?? 0);
   }

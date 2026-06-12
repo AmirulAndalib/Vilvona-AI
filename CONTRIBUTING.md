@@ -1,6 +1,6 @@
-# Contributing to OpenClaw
+# Contributing to Vilvona AI
 
-Welcome to the lobster tank! 🦞
+Built by [Vignesh S](https://github.com/vignesh2027). MIT licensed — fork freely.
 
 ## Quick Links
 
