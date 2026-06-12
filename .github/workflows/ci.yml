@@ -164,6 +164,7 @@ jobs:
           context: docker
           file: docker/Dockerfile
           push: false
+          load: true
           tags: vilvona-ai:latest
 
       - name: Smoke test image
