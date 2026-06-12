@@ -6,9 +6,19 @@
  */
 
 import { spawn, execSync } from "node:child_process";
-import { existsSync, mkdirSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync } from "node:fs";
+import { createRequire } from "node:module";
 import os from "node:os";
 import path from "node:path";
+
+const _require = createRequire(import.meta.url);
+const VILVONA_VERSION = (() => {
+  try {
+    return _require("./package.json").version;
+  } catch {
+    return "1.0.3";
+  }
+})();
 
 // ── Node version guard ────────────────────────────────────────────────────────
 const MIN_MAJOR = 22;
@@ -30,7 +40,7 @@ if (curMajor < MIN_MAJOR || (curMajor === MIN_MAJOR && curMinor < MIN_MINOR)) {
 
 // ── Version flag ─────────────────────────────────────────────────────────────
 if (process.argv.includes("--version") || process.argv.includes("-v")) {
-  process.stdout.write("Vilvona AI 1.0.0 (powered by OpenClaw)\n");
+  process.stdout.write(`Vilvona AI v${VILVONA_VERSION} (powered by OpenClaw)\n`);
   process.exit(0);
 }
 
