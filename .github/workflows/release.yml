@@ -5,6 +5,10 @@ on:
     tags:
       - 'v*'
 
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
   publish:
     name: Publish to npm
@@ -12,26 +16,51 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.2.2
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v4.4.0
         with:
           node-version: 22
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
+      - name: Verify package name and version
+        run: |
+          node - <<'SCRIPT'
+          const pkg = require('./package.json');
+          console.log('Publishing:', pkg.name + '@' + pkg.version);
+          if (pkg.name !== 'vilvona') { console.error('Wrong package name'); process.exit(1); }
+          if (!pkg.bin?.vilvona) { console.error('bin.vilvona missing'); process.exit(1); }
+          console.log('Package checks passed');
+          SCRIPT
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      - name: Validate launcher syntax
+        run: node --check openclaw.mjs && echo "Launcher syntax OK"
 
-      - name: Build
-        run: pnpm build
-
-      - name: Publish
-        run: npm publish --access public
+      - name: Publish to npm
+        run: npm publish --access public --ignore-scripts
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          body: |
+            ## Vilvona AI ${{ github.ref_name }}
+
+            Install or update:
+            ```bash
+            npx vilvona@latest
+            ```
+
+            Or:
+            ```bash
+            npm install -g vilvona@latest
+            ```
+
+            **What's new:** See commit history for changes.
+
+            **Payment:** [vignesh2027.mojo.page/vilvona-ai-pro](https://vignesh2027.mojo.page/vilvona-ai-pro)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

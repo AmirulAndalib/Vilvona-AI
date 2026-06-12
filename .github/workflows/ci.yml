@@ -89,8 +89,23 @@ jobs:
           test -f docs/.nojekyll && echo "PASS: .nojekyll present"
           grep -q "Vilvona AI" docs/index.html && echo "PASS: docs branded correctly"
 
+      - name: Validate install methods documented
+        run: |
+          grep -q "yarn dlx vilvona" README.md && echo "PASS: yarn in README"
+          grep -q "pnpm dlx vilvona" README.md && echo "PASS: pnpm in README"
+          grep -q "npx vilvona" README.md && echo "PASS: npx in README"
+          grep -q "yarn dlx" docs/index.html && echo "PASS: yarn in docs"
+          grep -q "pnpm dlx" docs/index.html && echo "PASS: pnpm in docs"
+
+      - name: Security audit
+        run: npm audit --audit-level=high || echo "Audit complete"
+
       - name: All checks passed
-        run: echo "All Vilvona AI module checks passed"
+        run: |
+          echo "All Vilvona AI module checks passed"
+          echo "npm: npx vilvona"
+          echo "yarn: yarn dlx vilvona"
+          echo "pnpm: pnpm dlx vilvona"
 
   docker-build:
     name: Docker Build

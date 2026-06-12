@@ -39,12 +39,14 @@ It is built on the foundation of [OpenClaw](https://openclaw.ai) (MIT license) w
 ## Quick Start
 
 ```bash
-# Run instantly — no install needed
+# npm (recommended)
 npx vilvona
 
-# Or install globally
-npm install -g vilvona
-vilvona
+# yarn
+yarn dlx vilvona
+
+# pnpm
+pnpm dlx vilvona
 ```
 
 Set your Anthropic API key (get one free at [console.anthropic.com](https://console.anthropic.com)):
@@ -110,11 +112,34 @@ Or set in your config file:
 
 ## Installation
 
-### npx (recommended — no install)
+### npx — no install needed
 
 ```bash
 npx vilvona
 ```
+
+### yarn
+
+```bash
+yarn dlx vilvona
+
+# or install globally
+yarn global add vilvona
+vilvona
+```
+
+### pnpm
+
+```bash
+pnpm dlx vilvona
+
+# or install globally
+pnpm add -g vilvona
+vilvona
+```
+
+> **Note:** `pnpm dlx` requires the package to be 2+ days old due to pnpm's supply-chain security.
+> If it fails, use `npx vilvona` or run: `pnpm config set minimumReleaseAge 0`
 
 ### npm global
 

@@ -876,14 +876,14 @@
 <!-- INSTALL -->
 <section id="install">
   <div class="section-label">Install</div>
-  <h2>Multiple ways to run Vilvona AI.</h2>
-  <p class="section-sub">From a quick npx command to a full Docker deployment — choose what works for you.</p>
+  <h2>Works with npm, yarn, pnpm, and Docker.</h2>
+  <p class="section-sub">One command on any OS — Mac, Windows, Linux. Node.js 22+ required.</p>
 
   <div class="install-grid fade-up">
     <div class="install-card">
       <div class="install-card-header">
         <span class="icon">⚡</span>
-        <h3>npx (Recommended)</h3>
+        <h3>npx — recommended</h3>
       </div>
       <div class="code-block" style="border:none;border-radius:0">
         <div class="code-header">
@@ -898,17 +898,32 @@
 
     <div class="install-card">
       <div class="install-card-header">
-        <span class="icon">📦</span>
-        <h3>npm global</h3>
+        <span class="icon">🧶</span>
+        <h3>yarn</h3>
       </div>
       <div class="code-block" style="border:none;border-radius:0">
         <div class="code-header">
-          <span>Permanent install</span>
-          <button class="copy-btn" onclick="copyCode(this, 'npm install -g vilvona\nvilvona')">Copy</button>
+          <span>yarn dlx (no install)</span>
+          <button class="copy-btn" onclick="copyCode(this, 'yarn dlx vilvona')">Copy</button>
         </div>
         <div class="code-body">
-          <span class="k">npm install</span> <span class="v">-g</span> <span class="s">vilvona</span><br/>
-          <span class="k">vilvona</span>
+          <span class="k">yarn dlx</span> <span class="s">vilvona</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="install-card">
+      <div class="install-card-header">
+        <span class="icon">📦</span>
+        <h3>pnpm</h3>
+      </div>
+      <div class="code-block" style="border:none;border-radius:0">
+        <div class="code-header">
+          <span>pnpm dlx (no install)</span>
+          <button class="copy-btn" onclick="copyCode(this, 'pnpm dlx vilvona')">Copy</button>
+        </div>
+        <div class="code-body">
+          <span class="k">pnpm dlx</span> <span class="s">vilvona</span>
         </div>
       </div>
     </div>
@@ -934,19 +949,35 @@
 
     <div class="install-card">
       <div class="install-card-header">
+        <span class="icon">🪟</span>
+        <h3>Windows (PowerShell)</h3>
+      </div>
+      <div class="code-block" style="border:none;border-radius:0">
+        <div class="code-header">
+          <span>Windows native</span>
+          <button class="copy-btn" onclick="copyCode(this, '$env:ANTHROPIC_API_KEY=\"sk-ant-...\"\nnpx vilvona')">Copy</button>
+        </div>
+        <div class="code-body" style="font-size:0.82rem">
+          <span class="v">$env:ANTHROPIC_API_KEY</span>=<span class="s">"sk-ant-..."</span><br/>
+          <span class="k">npx</span> <span class="s">vilvona</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="install-card">
+      <div class="install-card-header">
         <span class="icon">🍺</span>
         <h3>From Source</h3>
       </div>
       <div class="code-block" style="border:none;border-radius:0">
         <div class="code-header">
           <span>Clone &amp; run</span>
-          <button class="copy-btn" onclick="copyCode(this, 'git clone https://github.com/vignesh2027/Vilvona-AI\ncd Vilvona-AI\nnpm install\nnpm start')">Copy</button>
+          <button class="copy-btn" onclick="copyCode(this, 'git clone https://github.com/vignesh2027/Vilvona-AI\ncd Vilvona-AI\nnpm install\nnpx vilvona')">Copy</button>
         </div>
         <div class="code-body" style="font-size:0.82rem">
-          <span class="k">git clone</span> <span class="s">https://github.com/vignesh2027/Vilvona-AI</span><br/>
+          <span class="k">git clone</span> <span class="s">github.com/vignesh2027/Vilvona-AI</span><br/>
           <span class="k">cd</span> Vilvona-AI<br/>
-          <span class="k">npm install</span><br/>
-          <span class="k">npm start</span>
+          <span class="k">npx vilvona</span>
         </div>
       </div>
     </div>
