@@ -4,6 +4,8 @@
 
 # Vilvona AI
 
+<img width="3360" height="1854" alt="image" src="https://github.com/user-attachments/assets/270abc43-8a32-4729-918c-d367c2a30054" />
+
 [![npm](https://img.shields.io/npm/v/vilvona?color=22c55e&label=npm)](https://www.npmjs.com/package/vilvona)
 [![MIT](https://img.shields.io/badge/license-MIT-22c55e)](LICENSE)
 [![Node 22+](https://img.shields.io/badge/node-22%2B-22c55e)](https://nodejs.org)
